@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Git继续学习 | 我的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库 版本回退 当我们 commit 很多操作的情况系，我们想要回到之前的">
+  <meta name="description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git继续学习">
 <meta property="og:url" content="http://yoursite.com/2017/01/24/Git继续学习/index.html">
 <meta property="og:site_name" content="我的小站">
-<meta property="og:description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库 版本回退 当我们 commit 很多操作的情况系，我们想要回到之前的">
+<meta property="og:description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2017/01/24/img/git4.jpg">
 <meta property="og:image" content="http://yoursite.com/2017/01/24/img/git5.jpg">
-<meta property="og:updated_time" content="2018-05-22T12:59:11.793Z">
+<meta property="og:updated_time" content="2018-06-03T11:21:21.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git继续学习">
-<meta name="twitter:description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库 版本回退 当我们 commit 很多操作的情况系，我们想要回到之前的">
+<meta name="twitter:description" content="再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询  Git工作区，暂存区与版本库 git add: 将文件从工作区添加到暂存区git commit: 将暂存区存储到版本库">
 <meta name="twitter:image" content="http://yoursite.com/2017/01/24/img/git4.jpg">
   
     <link rel="alternative" href="/atom.xml" title="我的小站" type="application/atom+xml">
@@ -51,10 +51,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="头像.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">刘春煦</a></h1>
+		  <h1 class="header-author"><a href="/">Adler</a></h1>
 		</hgroup>
 		
 
@@ -109,10 +109,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="头像.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">刘春煦</h1>
+			  <h1 class="header-author js-header-author">Adler</h1>
 			</hgroup>
 			
 			
@@ -182,7 +182,7 @@
 <p>再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询</p>
 </blockquote>
 <h2 id="Git工作区，暂存区与版本库"><a href="#Git工作区，暂存区与版本库" class="headerlink" title="Git工作区，暂存区与版本库"></a>Git工作区，暂存区与版本库</h2><p><img src="/2017/01/24/Git继续学习/../img/git4.jpg" alt="Alt text"></p>
-<p>git add: 将文件从工作区添加到暂存区<br>git commit: 将暂存区存储到版本库</p>
+<p>git add: 将文件从工作区添加到暂存区<br>git commit: 将暂存区存储到版本库<br><a id="more"></a></p>
 <h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><blockquote>
 <p>当我们 commit 很多操作的情况系，我们想要回到之前的版本，可以通过版本回退，回退到之前的版本,如果忘了如何操作我们可以查询当前状态，根据提示操作 git status(git status 是查询工作区的状态)</p>
 </blockquote>
@@ -216,27 +216,6 @@
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -371,7 +350,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 刘春煦
+    		&copy; 2018 Adler
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -474,11 +453,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>

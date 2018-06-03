@@ -47,10 +47,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="头像.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">刘春煦</a></h1>
+		  <h1 class="header-author"><a href="/">Adler</a></h1>
 		</hgroup>
 		
 
@@ -105,10 +105,10 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="头像.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">刘春煦</h1>
+			  <h1 class="header-author js-header-author">Adler</h1>
 			</hgroup>
 			
 			
@@ -179,18 +179,8 @@
         <h3 id="一、ResultSet接口的介绍："><a href="#一、ResultSet接口的介绍：" class="headerlink" title="一、ResultSet接口的介绍："></a>一、ResultSet接口的介绍：</h3><p>对数据库的查询操作，一般需要返回查询结果，在程序中，JDBC为我们提供了ResultSet接口来专门处理查询结果集。</p>
 <p>Statement通过以下方法执行一个查询操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ResultSet executeQuery(String sql) throws SQLException</span><br></pre></td></tr></table></figure></p>
 <p>单词Query就是查询的意思。函数的返回类型是ResultSet，实际上查询的数据并不在ResultSet里面，依然是在数据库里，ResultSet中的next()方法类似于一个指针，指向查询的结果，然后不断遍历。所以这就要求连接不能断开。</p>
-<p>ResultSet接口常用方法：</p>
-<p>boolean next()     遍历时，判断是否有下一个结果<br>int getInt(String columnLabel)<br>int getInt(int columnIndex)<br>Date getDate(String columnLabel)<br>Date getDate(int columnIndex)<br>String getString(String columnLabel)<br>String getString(int columnIndex)</p>
-<p>###二、ResultSet接口实现查询操作：<br>步骤如下：（和上一篇博文中的增删改的步骤类似哦）</p>
-<p>1、加载数据库驱动程序：Class.forName(驱动程序类)<br>2、通过用户名密码和连接地址获取数据库连接对象：DriverManager.getConnection(连接地址,用户名,密码)<br>3、构造查询SQL语句<br>4、创建Statement实例：Statement stmt = conn.createStatement()<br>5、执行查询SQL语句，并返回结果：ResultSet rs = stmt.executeQuery(sql)<br>6、处理结果<br>7、关闭连接：rs.close()、stmt.close()、conn.close()</p>
-<h3 id="Code-block"><a href="#Code-block" class="headerlink" title="Code block"></a>Code block</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package com.vae.jdbc;</span><br><span class="line"></span><br><span class="line">import java.sql.Connection;</span><br><span class="line">import java.sql.DriverManager;</span><br><span class="line">import java.sql.ResultSet;</span><br><span class="line">import java.sql.SQLException;</span><br><span class="line">import java.sql.Statement;</span><br><span class="line"></span><br><span class="line">public class JdbcQuey &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //数据库连接地址</span><br><span class="line">    private final static String URL = &quot;jdbc:mysql://localhost:3306/JDBCdb&quot;;</span><br><span class="line">    //用户名</span><br><span class="line">    public final static String USERNAME = &quot;root&quot;;</span><br><span class="line">    //密码</span><br><span class="line">    public final static String PASSWORD = &quot;smyh&quot;;</span><br><span class="line">    //加载的驱动程序类（这个类就在我们导入的jar包中）</span><br><span class="line">    public final static String DRIVER = &quot;com.mysql.jdbc.Driver&quot;;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // TODO Auto-generated method stub</span><br><span class="line">        query();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //方法：查询操作</span><br><span class="line">    public static void query()&#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Class.forName(DRIVER);</span><br><span class="line">            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);</span><br><span class="line">            String sql = &quot;select id,name,age,description from person&quot;;</span><br><span class="line">            Statement state = conn.createStatement();</span><br><span class="line">            //执行查询并返回结果集</span><br><span class="line">            ResultSet rs = state.executeQuery(sql);</span><br><span class="line">            while(rs.next())&#123;  //通过next来索引：判断是否有下一个记录</span><br><span class="line">                //rs.getInt(&quot;id&quot;); //方法：int java.sql.ResultSet.getInt(String columnLabel) throws SQLException</span><br><span class="line">                int id = rs.getInt(1);  //方法：int java.sql.ResultSet.getInt(int columnIndex) throws SQLException</span><br><span class="line"></span><br><span class="line">                String name = rs.getString(2);</span><br><span class="line">                int age = rs.getInt(3);</span><br><span class="line">                String description = rs.getString(4);</span><br><span class="line">                System.out.println(&quot;id=&quot;+id+&quot;,name=&quot;+name+&quot;,age=&quot;+age+&quot;,description=&quot;+description);</span><br><span class="line">            &#125;</span><br><span class="line">            rs.close();</span><br><span class="line">            state.close();</span><br><span class="line">            conn.close();            </span><br><span class="line">            </span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、ResultSet中rs-getInt-rs-getSting-和rs-getDouble-的区别和用法"><a href="#三、ResultSet中rs-getInt-rs-getSting-和rs-getDouble-的区别和用法" class="headerlink" title="三、ResultSet中rs.getInt(),rs.getSting()和rs.getDouble()的区别和用法"></a>三、ResultSet中rs.getInt(),rs.getSting()和rs.getDouble()的区别和用法</h3><p>rs.getXxx(参数)中Xxx代表哪个，参数都可以是1，2，3，4，表示取第1，2，3，4列的值，或者参数也可以直接是 id name address salary</p>
-<p>问题是Xxx什么时候应该用Int，什么时候应该用String或者Double呢？这取决于数据库中每列所处处数据的类型。</p>
-<p>如，最好这样获取各列</p>
-<p>rs.getInt(1) = rs.getInt(id)</p>
-<p>rs.getString(2) = rs.getString(name)</p>
-<p>rs.getDouble(4) = rs.getDouble(salary)</p>
-
+<p>ResultSet接口常用方法：<br></p>
+        
       
 
       
@@ -267,31 +257,8 @@
 <p>我也分享一下，盖茨提到微软公司的宗旨就是：写软件代表的是世界的将来。</p>
 <p>为什么？未来任何一个工业都会变成软件工业。盖茨是对的，因为任何工业任何行业自动化的程度会越来越高，最后你所处理的就是信息和知识。</p>
 <p>但现在软件的做法又往前提了一次，因为在人工智能时代，不光是写代码，你必须懂算法，懂硬件，懂数据，整个人工智能的开发过程有一个很大程度的提高，但是，技术，特别是我们这个工业所代表的技术一定是将来任何工业的前沿。</p>
-<p>所以我们一定要有一个坚定不移的深刻的理念，相信整个世界终究是为技术所驱动的。</p>
-<h3 id="2、站在巨人的肩膀上做创新"><a href="#2、站在巨人的肩膀上做创新" class="headerlink" title="2、站在巨人的肩膀上做创新"></a>2、站在巨人的肩膀上做创新</h3><p>我们观察一下，在美国硅谷、在中国，互联网创业公司也好，大型公司也好，大家的起点是越来越高的。为什么现在创新速度那么快？主要是起点高了。我们可以使用的代码模块，使用的服务的能力，都是大大的提升。</p>
-<p>在内部我想强调这一点，很多大公司包括微软在内，内部的Code都重做了无数遍。</p>
-<p>我现在的要求是，每一次你写一行新的代码，第一要做的，先想一想你这行代码值得不值得写，是不是有人已经做了同样的工作，可能做得比你还好一点。有没有其他人已经解决这个问题，然后你可以把你的时间放在更好的创新上。</p>
-<p>特别是大公司里面重复或者是几乎重复的Code实在太多，浪费太多的资源，对每个人的职业生涯都不是好事情。</p>
-<p>我再强调，在大公司内部，你写代码之前想一想，你这行代码要不要写，是不是别人已经有了，站在别人的肩膀上去做这件事情。</p>
-<h3 id="3、追求Engineering-Excellence"><a href="#3、追求Engineering-Excellence" class="headerlink" title="3、追求Engineering Excellence"></a>3、追求Engineering Excellence</h3><p>我要另外强调的一点就是Engineering Excellence，工程的技术的卓越性和能力。</p>
-<p>任何市场上竞争就像打仗一样，就看你的部队体能、质量，每一个士兵他的训练的程度，和你给他使机关枪、坦克，还是什么样的武器。</p>
-<p>所以Engineering Excellence跟这个类比，我们要建的是一支世界上最强的部队，每一个士兵，每一个领军人，每个人的能力，他的训练都是超强的，然后我们给每个人提供的工具和武器都是一流的。</p>
-<p>所以Engineering Excellence是一个永无止境的、个人的、团队的，能力的追求和工具平台的创新，综合在一起可以给我们带来的长期的、核心的竞争力，为社会创造价值，最终的目的是给每个用户、每个企业、整个社会创造价值。</p>
-<p>我另外还要在这里强调的一点就是Relentless pursuit of excellence：永无止境的不断的持续的追求。</p>
-<p>我们要么不做，要做的事情一定做最好，这是我对大家的要求。数据库也好，做大平台也好，大数据也好，我们要做什么事情，我们一定要下决心，这是我对你们每个人的要求，做什么事情一定要做最好，一定要是做业界最强的。</p>
-<h3 id="4、每天学习"><a href="#4、每天学习" class="headerlink" title="4、每天学习"></a>4、每天学习</h3><p>每天学习，可能是对每个人都是最最重要的。</p>
-<p>我今天分享一下，我自己怎么想我自己的。就很简单一个概念，我把自己想象是一个软件、一个代码，今天的版本一定要比昨天版本好，明天的版本肯定会比今天好，因为即使犯了错误，我里面有If statement，说如果见到这个错误，绝对不要再犯。</p>
-<p>英语，另外有一句说法就是Life is too short, don’t live the same day twice. 同样一天不要重活两次。每天都是不一样，每天为什么不一样，因为每天都变成最好，每天都变得更好。今天的版本一定要比昨天好，每个好的、杰出的工程师，杰出的技术领袖，一定要保持自己学习的能力，特别是学习的范围。</p>
-<p>在这上面我也稍微引申一下，做Computer science的，如果只学Computer science，不去学一些其他的行业，肯定不够。我举个例子，经济学必须要学。为什么这样讲？Computer science它有个很大的限制，他是假定你有输入以后有输出，这种解决问题的方式有它的好处，但有它的限制性。</p>
-<p>我给大家举个例子，地图导航，如果你纯粹用这个方式去做，你只是把一个拥挤的地方移到另外一个拥挤的地方。经济学，它对问题的建模是不一样的。它起点是假定是一个整体的一个生态，每个人的输入都是另外一个人的输出，你要用经济学的方式来描述地图导航的问题，你就会去算一个Equilibrium，市场也是这样。</p>
-<p>如果把深度学习真的要想彻底，必须把物理重学一遍，把生物学看一遍，再把进化论再看一遍。因为深度学习跟这些东西完全相关，自己肯定想不清楚，要彻底想清楚，必须学。</p>
-<p>另外，学产品，我以前跟所有的工程师都讲，如果不懂产品，你不可能成为一个最好的工程师。真正要做世界一流的工程师不光要懂产品，还要懂整个商业，懂生态。因为你的工作的责任，是能够看到将来，把技术展望到将来的需求，把平台、把开发流程、把你的团队为将来做准备。所以学习是非常非常重要的。</p>
-<h3 id="5、Ownership"><a href="#5、Ownership" class="headerlink" title="5、Ownership"></a>5、Ownership</h3><p>最后是从我做起。</p>
-<p>我们公司有个非常大的使命，用科技让复杂的世界更简单。整个世界非常非常复杂，人其实所做的事情基本上都是Reduce entropy。</p>
-<p>因为从热力学第二定律来讲，世界是会变得越来越乱的，我们想做的事情就是把它变的更简单，让我们生活变得更美好。</p>
-<p>而且具体的，我们可以通过人工智能技术来做到唤醒万物，但是这一切是通过每一个人的一点一滴的行为累计起来，从我做起。还有Ownership，看到机会不需要问别人，有机会就去做，看到问题也不要去问别人，就把它Fix。</p>
-<p>把我们的使命、把我们的公司当成我们自己每个人的事业来做，我可以坦诚的给每个人讲，如果你把公司的使命，把公司的事业，当成你自己个人的事业，Own everything，你在职业生涯一定是走得最快。从我做起，从身边的每一件事情做起。</p>
-
+<p>所以我们一定要有一个坚定不移的深刻的理念，相信整个世界终究是为技术所驱动的。<br></p>
+        
       
 
       
@@ -366,15 +333,7 @@
       
         <h2 id="设计模式简介"><a href="#设计模式简介" class="headerlink" title="设计模式简介"></a>设计模式简介</h2><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中<br>面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
 <p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理<br>解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如<br>同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描<br>述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p>
-<h2 id="什么是-GOF（四人帮，全拼-Gang-of-Four）？"><a href="#什么是-GOF（四人帮，全拼-Gang-of-Four）？" class="headerlink" title="什么是 GOF（四人帮，全拼 Gang of Four）？"></a>什么是 GOF（四人帮，全拼 Gang of Four）？</h2><p>在 1994 年，由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为 Design Patterns - Elements of<br> Reusable Object-Oriented Software（中文译名：设计模式 - 可复用的面向对象软件元素） 的书，该书首次提到了软件开发中设计模式的概<br> 念。</p>
-<p>四位作者合称 GOF（四人帮，全拼 Gang of Four）。他们所提出的设计模式主要是基于以下的面向对象设计原则。</p>
-<p>对接口编程而不是对实现编程。<br>优先使用对象组合而不是继承。</p>
-<h2 id="设计模式的使用"><a href="#设计模式的使用" class="headerlink" title="设计模式的使用"></a>设计模式的使用</h2><p>设计模式在软件开发中的两个主要用途。</p>
-<h3 id="开发人员的共同平台"><a href="#开发人员的共同平台" class="headerlink" title="开发人员的共同平台"></a>开发人员的共同平台</h3><p>设计模式提供了一个标准的术语系统，且具体到特定的情景。例如，单例设计模式意味着使用单个对象，这样所有熟悉单例设计模式的开发人员<br>都能使用单个对象，并且可以通过这种方式告诉对方，程序使用的是单例模式。</p>
-<h3 id="最佳的实践"><a href="#最佳的实践" class="headerlink" title="最佳的实践"></a>最佳的实践</h3><p>设计模式已经经历了很长一段时间的发展，它们提供了软件开发过程中面临的一般问题的最佳解决方案。学习这些模式有助于经验不足的开发人<br>员通过一种简单快捷的方式来学习软件设计。</p>
-<h2 id="设计模式的类型"><a href="#设计模式的类型" class="headerlink" title="设计模式的类型"></a>设计模式的类型</h2><p>根据设计模式的参考书 Design Patterns - Elements of Reusable Object-Oriented Software（中文译名：设计模式 - 可复用的面向对象软<br>件元素） 中所提到的，总共有 23 种设计模式。这些模式可以分为三大类：创建型模式（Creational Patterns）、结构型模式（Structural<br>Patterns）、行为型模式（Behavioral Patterns）。当然，我们还会讨论另一类设计模式：J2EE 设计模式。</p>
-<p>1    创建型模式<br>这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实<br>例需要创建哪些对象时更加灵活。<br>工厂模式（Factory Pattern）<br>抽象工厂模式（Abstract Factory Pattern）<br>单例模式（Singleton Pattern）<br>建造者模式（Builder Pattern）<br>原型模式（Prototype Pattern）<br>2    结构型模式<br>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。<br>适配器模式（Adapter Pattern）<br>桥接模式（Bridge Pattern）<br>过滤器模式（Filter、Criteria Pattern）<br>组合模式（Composite Pattern）<br>装饰器模式（Decorator Pattern）<br>外观模式（Facade Pattern）<br>享元模式（Flyweight Pattern）<br>代理模式（Proxy Pattern）<br>3    行为型模式<br>这些设计模式特别关注对象之间的通信。<br>责任链模式（Chain of Responsibility Pattern）<br>命令模式（Command Pattern）<br>解释器模式（Interpreter Pattern）<br>迭代器模式（Iterator Pattern）<br>中介者模式（Mediator Pattern）<br>备忘录模式（Memento Pattern）<br>观察者模式（Observer Pattern）<br>状态模式（State Pattern）<br>空对象模式（Null Object Pattern）<br>策略模式（Strategy Pattern）<br>模板模式（Template Pattern）<br>访问者模式（Visitor Pattern）<br>4    J2EE 模式<br>这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。<br>MVC 模式（MVC Pattern）<br>业务代表模式（Business Delegate Pattern）<br>组合实体模式（Composite Entity Pattern）<br>数据访问对象模式（Data Access Object Pattern）<br>前端控制器模式（Front Controller Pattern）<br>拦截过滤器模式（Intercepting Filter Pattern）<br>服务定位器模式（Service Locator Pattern）<br>传输对象模式（Transfer Object Pattern）</p>
-
+        
       
 
       
@@ -447,18 +406,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是<br>Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像<a href="https://blog.csdn.net/hyh0327/article/details/62893301" target="_blank" rel="noopener">https://blog.csdn.net/hyh0327/article/details/62893301</a><br>这样，可还是无法解决。之后看了<a href="http://blog.csdn.net/u013456370/article/details/59483687，" target="_blank" rel="noopener">http://blog.csdn.net/u013456370/article/details/59483687，</a><br>方法一：加上：${pageContext.request.contextPath }/</p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/easyui.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/icon.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/demo.css"></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.min.js"></script></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script>.</p>
-<p>方法二：<br>&lt;%@ page language=”Java” contentType=”text/html; charset=UTF-8”<br>    pageEncoding=”UTF-8”%&gt;<br>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getScheme()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>&lt;!DOCTYPE html&gt;</p>
-<p><html></html></p>
-<head><br><base href="<%=basePath%>"><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><title>Insert title here</title><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/easyui.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/icon.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/demo.css"><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.min.js"></script><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script><br></head>
-
-<p>问题还是无法解决。在差点放弃的时候，在Eclipse中对WebContent文件夹刷新了一下，出现了其下的Bootstrap-3.37-dist文件夹，问题才得到解决。</p>
-
+        <p>在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像<a href="https://blog.csdn.net/hyh0327/article/details/62893301" target="_blank" rel="noopener">https://blog.csdn.net/hyh0327/article/details/62893301</a><br>这样，可还是无法解决。之后看了<a href="http://blog.csdn.net/u013456370/article/details/59483687" target="_blank" rel="noopener">http://blog.csdn.net/u013456370/article/details/59483687</a><br></p>
+        
       
 
       
@@ -535,38 +484,8 @@
 <p>再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询</p>
 </blockquote>
 <h2 id="Git工作区，暂存区与版本库"><a href="#Git工作区，暂存区与版本库" class="headerlink" title="Git工作区，暂存区与版本库"></a>Git工作区，暂存区与版本库</h2><p><img src="/2017/01/24/Git继续学习/../img/git4.jpg" alt="Alt text"></p>
-<p>git add: 将文件从工作区添加到暂存区<br>git commit: 将暂存区存储到版本库</p>
-<h2 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h2><blockquote>
-<p>当我们 commit 很多操作的情况系，我们想要回到之前的版本，可以通过版本回退，回退到之前的版本,如果忘了如何操作我们可以查询当前状态，根据提示操作 git status(git status 是查询工作区的状态)</p>
-</blockquote>
-<h3 id="Code-block"><a href="#Code-block" class="headerlink" title="Code block"></a>Code block</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^(回退到上一个提交版本 HEAD~回退的次数)</span><br><span class="line">git reset --hard commit_ID(回退到固定id的版本)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>以上可能需要 git log 查询提交ID，其中在命令后面添加 –pretty=oneline 表示只显示ID 和提交的消息</p>
-</blockquote>
-<p>总结：</p>
-<p>HEAD 指向的版本问当前版本所以后面一个^表示向前跳转一个~+数字表示向前跳几个<br>如果在回退到之前的版本忘记了commit_ID可以通过<br>git reglog查询记录所有的操作</p>
-<h3 id="管理修改"><a href="#管理修改" class="headerlink" title="管理修改"></a>管理修改</h3><blockquote>
-<p>场景1：当我们在工作区修改了一些内容，想要回到以前的版本中</p>
-</blockquote>
-<p>方法1: 手动删除不需要的内容<br>方法2: git chectout –filename 可以丢弃工作区的内容</p>
-<blockquote>
-<p>场景2 :当我们不想要的修改已经提交到了暂存区内,并且又在工作区修改的一些内容，该如何恢复？</p>
-</blockquote>
-<p>方法: git reset HEAD filename这个命令在git status后也可看到该提示。如下图:<br>将文件从回退到工作区。场景1的方法,将文件恢复到add前</p>
-<p><img src="/2017/01/24/Git继续学习/../img/git5.jpg" alt="Alt text"></p>
-<blockquote>
-<p>场景3 :当我们不想要的修改提交到了版本库，该如何恢复？</p>
-</blockquote>
-<p>方法: 先reset 回退到前一个版本库。就OK啦</p>
-<p>##删除操作</p>
-<blockquote>
-<p>当我们在完成了提交版本库的操作，删除了在工作区的一个文件，第一种场景是我们确实要删除它，那就add ——&gt; commit 完成更新版本库。第二种是，我们误删了文件想要恢复它。</p>
-</blockquote>
-<p>方法：git checkout –filename</p>
-<h4 id="总结：git-checkout-其实是用版本库里的版本替换工作区的版本，无论是修改还是删除-都可以“一键还原”"><a href="#总结：git-checkout-其实是用版本库里的版本替换工作区的版本，无论是修改还是删除-都可以“一键还原”" class="headerlink" title="总结：git checkout 其实是用版本库里的版本替换工作区的版本，无论是修改还是删除,都可以“一键还原”"></a>总结：git checkout 其实是用版本库里的版本替换工作区的版本，无论是修改还是删除,都可以“一键还原”</h4><blockquote>
-<p>注意：git rm用于删除一个文件。如果这个文件已经提交到了版本库，那就不用担心误删，但是你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容</p>
-</blockquote>
-
+<p>git add: 将文件从工作区添加到暂存区<br>git commit: 将暂存区存储到版本库<br></p>
+        
       
 
       
@@ -645,25 +564,8 @@
 <p>git add 添加文件到暂存区</p>
 <p>git commit 提交在暂存区的文件</p>
 <p>git diff xxx xxx 比较文件</p>
-<p>git branch 查看分支</p>
-<p>git branch xxx 创建新的分支</p>
-<p>git checkout xx 切换分支</p>
-<p>git checkout -b xxx 创建新的分支并切换</p>
-<p>git merge master test 合并两个分支（当分支同一级都做了修改，合并的时候会出现冲突，具体参考下面的冲突）</p>
-<p>git show id 显示父级跟系版本的改动</p>
-<p>git branch -d test 删除分支</p>
-<p>merge conflict</p>
-<p>HEAD标记表示我的代码<br>中间部分是已修改的原始版本<br>底部标记的分支是表示该分支的代码</p>
-<p>方法：删除原始数据和不需要的留下来的代码，保留需要的代码</p>
-<p>git remote 查看远程库和创建远程数据库</p>
-<p>git remote add 名称 远程数据库地址</p>
-<p>git remote -v 显示详细的信息</p>
-<p>git push 名称 分支 推送到github</p>
-<p>git pull 名称 分支 github上拉取</p>
-<p>GitHub 上fork 是获取其他人的库，并不需要先clone本地然后在上传 fork显示其他人获取的数量<br>git fetch 更新远程分支的本地副本而实际的本地版本保持不变</p>
-<p>情景：在获取远程库副本到本地，进行操作的时候 git pull 相当等于git fetch 更新然后 git merge 进行合并<br>自己画图梳理了一下。<br><img src="/2017/01/19/Git基础操作命令/../img/git1.jpg" alt="Alt text"><br><img src="/2017/01/19/Git基础操作命令/../img/git2.jpg" alt="Alt text"><br><img src="/2017/01/19/Git基础操作命令/../img/git3.jpg" alt="Alt text"></p>
-<p>git merge master origin/master 合并本地数据库和远程数据库副本<br>解读完上述信息，合并保留需要的删除其他两个-&gt;git add 文件-&gt;git commit；</p>
-
+<p>git branch 查看分支<br></p>
+        
       
 
       
@@ -736,18 +638,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>排序算法的稳定性通俗地讲就是能保证排序前2个相等的数其在序列的前后位置顺序和排序后它们两个的前后位置顺序相同。再简单形式化一下，<br>如果Ai = Aj，Ai原来在位置前，排序后Ai还是要在Aj位置前。<br>基数排序就是这样，先按低位排序，逐次按高位排序，低位相同的元素其顺序再高位也相同时是不会改变的。另外，如果排序算法稳定，对基于比较的排序算法而言，元素交换的次数可能会少一些。<br>回到主题，现在分析一下常见的排序算法的稳定性。<br>(1)冒泡排序</p>
-<p>冒泡排序就是把小的元素往前调或者把大的元素往后调。比较是相邻的两个元素比较，交换也发生在这两个元素之间。所以，如果两个元素相等，我想你是不会再无聊地把他们俩交换一下的；如果两个相等的元素没有相邻，那么即使通过前面的两两交换把两个相邻起来，这时候也不会交换，所以相同元素的前后顺序并没有改变，所以冒泡排序是一种稳定排序算法。</p>
-<p>(2)选择排序</p>
-<p>选择排序是给每个位置选择当前元素最小的，比如给第一个位置选择最小的，在剩余元素里面给第二个元素选择第二小的，依次类推，直到第n - 1个元素，第n个元素不用选择了，因为只剩下它一个最大的元素了。那么，在一趟选择，如果当前元素比一个元素小，而该小的元素又出现在一个和当前元素相等的元素后面，那么交换后稳定性就被破坏了。比较拗口，举个例子，序列5 8 5 2 9，我们知道第一遍选择第1个元素5会和2交换，那么原序列中2个5的相对前后顺序就被破坏了，所以选择排序不是一个稳定的排序算法。</p>
-<p>(3)插入排序<br>插入排序是在一个已经有序的小序列的基础上，一次插入一个元素。当然，刚开始这个有序的小序列只有1个元素，就是第一个元素。比较是从有序序列的末尾开始，也就是想要插入的元素和已经有序的最大者开始比起，如果比它大则直接插入在其后面，否则一直往前找直到找到它该插入的位置。如果碰见一个和插入元素相等的，那么插入元素把想插入的元素放在相等元素的后面。所以，相等元素的前后顺序没有改变，从原无序序列出去的顺序就是排好序后的顺序，所以插入排序是稳定的。</p>
-<p>(4)快速排序<br>快速排序有两个方向，左边的i下标一直往右走，当a[i] &lt;= a[center_index]，其中center_index是中枢元素的数组下标，一般取为数组第0个元素。而右边的j下标一直往左走，当a[j] &gt; a[center_index]。如果i和j都走不动了，i &lt;= j，交换a[i]和a[j],重复上面的过程，直到i &gt; j。 交换a[j]和a[center_index]，完成一趟快速排序。在中枢元素和a[j]交换的时候，很有可能把前面的元素的稳定性打乱，比如序列为5 3 3 4 3 8 9 10 11，现在中枢元素5和3（第5个元素，下标从1开始计）交换就会把元素3的稳定性打乱，所以快速排序是一个不稳定的排序算法，不稳定发生在中枢元素和a[j] 交换的时刻。</p>
-<p>(5)归并排序<br>归并排序是把序列递归地分成短序列，递归出口是短序列只有1个元素（认为直接有序）或者2个序列（1次比较和交换），然后把各个有序的段序列合并成一个有序的长序列，不断合并直到原序列全部排好序。可以发现，在1个或2个元素时，1个元素不会交换，2个元素如果大小相等也没有人故意交换，这不会破坏稳定性。那么，在短的有序序列合并的过程中，稳定是是否受到破坏？没有，合并过程中我们可以保证如果两个当前元素相等时，我们把处在前面的序列的元素保存在结果序列的前面，这样就保证了稳定性。所以，归并排序也是稳定的排序算法。</p>
-<p>(6)基数排序<br>基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。有时候有些属性是有优先级顺序的，先按低优先级排序，再按高优先级排序，最后的次序就是高优先级高的在前，高优先级相同的低优先级高的在前。基数排序基于分别排序，分别收集，所以其是稳定的排序算法。</p>
-<p>(7)希尔排序(shell)<br>希尔排序是按照不同步长对元素进行插入排序，当刚开始元素很无序的时候，步长最大，所以插入排序的元素个数很少，速度很快；当元素基本有序了，步长很小， 插入排序对于有序的序列效率很高。所以，希尔排序的时间复杂度会比O(n^2)好一些。由于多次插入排序，我们知道一次插入排序是稳定的，不会改变相同元素的相对顺序，但在不同的插入排序过程中，相同的元素可能在各自的插入排序中移动，最后其稳定性就会被打乱，所以shell排序是不稳定的。</p>
-<p>(8)堆排序<br>我们知道堆的结构是节点i的孩子为2 <em> i和2 </em> i + 1节点，大顶堆要求父节点大于等于其2个子节点，小顶堆要求父节点小于等于其2个子节点。在一个长为n 的序列，堆排序的过程是从第n / 2开始和其子节点共3个值选择最大（大顶堆）或者最小（小顶堆），这3个元素之间的选择当然不会破坏稳定性。但当为n / 2 - 1， n / 2 - 2， … 1这些个父节点选择元素时，就会破坏稳定性。有可能第n / 2个父节点交换把后面一个元素交换过去了，而第n / 2 - 1个父节点把后面一个相同的元素没 有交换，那么这2个相同的元素之间的稳定性就被破坏了。所以，堆排序不是稳定的排序算法。</p>
-<p>综上，得出结论: 选择排序、快速排序、希尔排序、堆排序不是稳定的排序算法，而冒泡排序、插入排序、归并排序和基数排序是稳定的排序算法</p>
-
+        <p>排序算法的稳定性通俗地讲就是能保证排序前2个相等的数其在序列的前后位置顺序和排序后它们两个的前后位置顺序相同。再简单形式化一下，<br>如果Ai = Aj，Ai原来在位置前，排序后Ai还是要在Aj位置前。<br>基数排序就是这样，先按低位排序，逐次按高位排序，低位相同的元素其顺序再高位也相同时是不会改变的。另外，如果排序算法稳定，对基于比较的排序算法而言，元素交换的次数可能会少一些。<br>回到主题，现在分析一下常见的排序算法的稳定性。</p>
+        
       
 
       
@@ -958,7 +850,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 刘春煦
+    		&copy; 2018 Adler
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1061,11 +953,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>
