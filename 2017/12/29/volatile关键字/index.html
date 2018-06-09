@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Eclipse里jsp文件Bootstrap的css实效解决办法 | Adler的博客</title>
+  <title>volatile关键字 | Adler的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
-<meta name="keywords" content="Bootstrap">
+  <meta name="description" content="一、Java内存模型：在Java虚拟机规范中试图定义一种Java内存模型（Java Memory Model，JMM）来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果。那么Java内存模型规定了哪些东西呢，它定义了程序中变量的访问规则，往大一点说是定义了程序执行的次序。注意，为了获得较好的执行性能，Java内存模型并没有限制执行引擎使用处理器的">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Eclipse里jsp文件Bootstrap的css实效解决办法">
-<meta property="og:url" content="http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/index.html">
+<meta property="og:title" content="volatile关键字">
+<meta property="og:url" content="http://yoursite.com/2017/12/29/volatile关键字/index.html">
 <meta property="og:site_name" content="Adler的博客">
-<meta property="og:description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
+<meta property="og:description" content="一、Java内存模型：在Java虚拟机规范中试图定义一种Java内存模型（Java Memory Model，JMM）来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果。那么Java内存模型规定了哪些东西呢，它定义了程序中变量的访问规则，往大一点说是定义了程序执行的次序。注意，为了获得较好的执行性能，Java内存模型并没有限制执行引擎使用处理器的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-09T12:43:03.363Z">
+<meta property="og:updated_time" content="2018-06-09T12:42:07.604Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eclipse里jsp文件Bootstrap的css实效解决办法">
-<meta name="twitter:description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
+<meta name="twitter:title" content="volatile关键字">
+<meta name="twitter:description" content="一、Java内存模型：在Java虚拟机规范中试图定义一种Java内存模型（Java Memory Model，JMM）来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果。那么Java内存模型规定了哪些东西呢，它定义了程序中变量的访问规则，往大一点说是定义了程序执行的次序。注意，为了获得较好的执行性能，Java内存模型并没有限制执行引擎使用处理器的">
   
     <link rel="alternative" href="/atom.xml" title="Adler的博客" type="application/atom+xml">
   
@@ -141,37 +141,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Eclipse里jsp文件Bootstrap的css实效解决办法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-volatile关键字" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Eclipse里jsp文件Bootstrap的css实效解决办法
+      volatile关键字
     </h1>
   
 
         
-        <a href="/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/" class="archive-article-date">
-  	<time datetime="2018-05-08T01:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-08</time>
+        <a href="/2017/12/29/volatile关键字/" class="archive-article-date">
+  	<time datetime="2017-12-29T11:07:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像<a href="https://blog.csdn.net/hyh0327/article/details/62893301" target="_blank" rel="noopener">https://blog.csdn.net/hyh0327/article/details/62893301</a><br>这样，可还是无法解决。之后看了<a href="http://blog.csdn.net/u013456370/article/details/59483687" target="_blank" rel="noopener">http://blog.csdn.net/u013456370/article/details/59483687</a><br><a id="more"></a><br>方法一：加上：${pageContext.request.contextPath }/</p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/easyui.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/icon.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/demo.css"></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.min.js"></script></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script>.</p>
-<p>方法二：<br>&lt;%@ page language=”Java” contentType=”text/html; charset=UTF-8”<br>    pageEncoding=”UTF-8”%&gt;<br>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getScheme()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>&lt;!DOCTYPE html&gt;</p>
-<p><html></html></p>
-<head><br><base href="<%=basePath%>"><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><title>Insert title here</title><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/easyui.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/icon.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/demo.css"><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.min.js"></script><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script><br></head>
-
-<p>问题还是无法解决。在差点放弃的时候，在Eclipse中对WebContent文件夹刷新了一下，出现了其下的Bootstrap-3.37-dist文件夹，问题才得到解决。</p>
+        <h3 id="一、Java内存模型："><a href="#一、Java内存模型：" class="headerlink" title="一、Java内存模型："></a>一、Java内存模型：</h3><p>在Java虚拟机规范中试图定义一种Java内存模型（Java Memory Model，JMM）来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让Java程序在各种平台下都能达到一致的内存访问效果。那么Java内存模型规定了哪些东西呢，它定义了程序中变量的访问规则，往大一点说是定义了程序执行的次序。注意，为了获得较好的执行性能，Java内存模型并没有限制执行引擎使用处理器的寄存器或者高速缓存来提升指令执行速度，也没有限制编译器对指令进行重排序。也就是说，在java内存模型中，也会存在缓存一致性问题和指令重排序的问题。</p>
+<p>　　Java内存模型规定所有的变量都是存在主存当中（类似于前面说的物理内存），每个线程都有自己的工作内存（类似于前面的高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。</p>
+<p>　　举个简单的例子：在java中，执行下面这个语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i  = 10;</span><br></pre></td></tr></table></figure></p>
+<p>执行线程必须先在自己的工作线程中对变量i所在的缓存行进行赋值操作，然后再写入主存当中。而不是直接将数值10写入主存当中。<br>　　那么Java语言 本身对 原子性、可见性以及有序性提供了哪些保证呢？<br><a id="more"></a>
+　　</p>
+<p>####1.原子性</p>
+<p>　　在Java中，对基本数据类型的变量的读取和赋值操作是原子性操作，即这些操作是不可被中断的，要么执行，要么不执行。<br>        例如下面只有语句1是原子性操作，其他三个语句都不是原子性操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = 10;         //语句1</span><br><span class="line">y = x;         //语句2</span><br><span class="line">x++;           //语句3</span><br><span class="line">x = x + 1;     //语句4</span><br></pre></td></tr></table></figure></p>
+<p>　　语句1是直接将数值10赋值给x，也就是说线程执行这个语句的会直接将数值10写入到工作内存中。</p>
+<p>　　语句2实际上包含2个操作，它先要去读取x的值，再将x的值写入工作内存，虽然读取x的值以及 将x的值写入工作内存 这2个操作都是原子性操作，但是合起来就不是原子性操作了。</p>
+<p>　　同样的，x++和 x = x+1包括3个操作：读取x的值，进行加1操作，写入新的值。</p>
+<p> 　　所以上面4个语句只有语句1的操作具备原子性。</p>
+<p>　　也就是说，只有简单的读取、赋值（而且必须是将数字赋值给某个变量，变量之间的相互赋值不是原子操作）才是原子操作。</p>
+<p>　　不过这里有一点需要注意：在32位平台下，对64位数据的读取和赋值是需要通过两个操作来完成的，不能保证其原子性。但是好像在最新的JDK中，JVM已经保证对64位数据的读取和赋值也是原子性操作了。</p>
+<p>　　从上面可以看出，Java内存模型只保证了基本读取和赋值是原子性操作，如果要实现更大范围操作的原子性，可以通过synchronized和Lock来实现。由于synchronized和Lock能够保证任一时刻只有一个线程执行该代码块，那么自然就不存在原子性问题了，从而保证了原子性。</p>
+<p>####2.可见性</p>
+<p>　　对于可见性，Java提供了volatile关键字来保证可见性。</p>
+<p>　　当一个共享变量被volatile修饰时，它会保证修改的值会立即被更新到主存，当有其他线程需要读取时，它会去内存中读取新值。</p>
+<p>　　而普通的共享变量不能保证可见性，因为普通共享变量被修改之后，什么时候被写入主存是不确定的，当其他线程去读取时，此时内存中可能还是原来的旧值，因此无法保证可见性。</p>
+<p>　　另外，通过synchronized和Lock也能够保证可见性，synchronized和Lock能保证同一时刻只有一个线程获取锁然后执行同步代码，并且在释放锁之前会将对变量的修改刷新到主存当中。因此可以保证可见性。</p>
+<p>####3.有序性</p>
+<p>　　在Java内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</p>
+<p>　　在Java里面，可以通过volatile关键字来保证一定的“有序性”（具体原理在下一节讲述）。另外可以通过synchronized和Lock来保证有序性，很显然，synchronized和Lock保证每个时刻是有一个线程执行同步代码，相当于是让线程顺序执行同步代码，自然就保证了有序性。</p>
+<p>　　另外，Java内存模型具备一些先天的“有序性”，即不需要通过任何手段就能够得到保证的有序性，这个通常也称为 happens-before 原则。如果两个操作的执行次序无法从happens-before原则推导出来，那么它们就不能保证它们的有序性，虚拟机可以随意地对它们进行重排序。</p>
+<p>　　下面就来具体介绍下happens-before原则（先行发生原则）：</p>
+<p>程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作<br>锁定规则：一个unLock操作先行发生于后面对同一个锁额lock操作<br>volatile变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作<br>传递规则：如果操作A先行发生于操作B，而操作B又先行发生于操作C，则可以得出操作A先行发生于操作C<br>线程启动规则：Thread对象的start()方法先行发生于此线程的每个一个动作<br>线程中断规则：对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生<br>线程终结规则：线程中所有的操作都先行发生于线程的终止检测，我们可以通过Thread.join()方法结束、Thread.isAlive()的返回值手段检测到线程已经终止执行<br>对象终结规则：一个对象的初始化完成先行发生于他的finalize()方法的开始<br>　　这8条原则摘自《深入理解Java虚拟机》。</p>
+<p>　　这8条规则中，前4条规则是比较重要的，后4条规则都是显而易见的。</p>
+<p>　　下面我们来解释一下前4条规则：</p>
+<p>　　对于程序次序规则来说，我的理解就是一段程序代码的执行在单个线程中看起来是有序的。注意，虽然这条规则中提到“书写在前面的操作先行发生于书写在后面的操作”，这个应该是程序看起来执行的顺序是按照代码顺序执行的，因为虚拟机可能会对程序代码进行指令重排序。虽然进行重排序，但是最终执行的结果是与程序顺序执行的结果一致的，它只会对不存在数据依赖性的指令进行重排序。因此，在单个线程中，程序执行看起来是有序执行的，这一点要注意理解。事实上，这个规则是用来保证程序在单线程中执行结果的正确性，但无法保证程序在多线程中执行的正确性。</p>
+<p>　　第二条规则也比较容易理解，也就是说无论在单线程中还是多线程中，同一个锁如果出于被锁定的状态，那么必须先对锁进行了释放操作，后面才能继续进行lock操作。</p>
+<p>　　第三条规则是一条比较重要的规则，也是后文将要重点讲述的内容。直观地解释就是，如果一个线程先去写一个变量，然后一个线程去进行读取，那么写入操作肯定会先行发生于读操作。</p>
+<p>　　第四条规则实际上就是体现happens-before原则具备传递性。</p>
+<p>###二、深入剖析volatile关键字：</p>
+<p>####1.volatile关键字的两层语义</p>
+<p>　　一旦一个共享变量（类的成员变量、类的静态成员变量）被volatile修饰之后，那么就具备了两层语义：</p>
+<p>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。</p>
+<p>　　2）禁止进行指令重排序。</p>
+<p>　　先看一段代码，假如线程1先执行，线程2后执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//线程1</span><br><span class="line">boolean stop = false;</span><br><span class="line">while(!stop)&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//线程2</span><br><span class="line">stop = true;</span><br></pre></td></tr></table></figure>
+<p>这段代码是很典型的一段代码，很多人在中断线程时可能都会采用这种标记办法。但是事实上，这段代码会完全运行正确么？即一定会将线程中断么？不一定，也许在大多数时候，这个代码能够把线程中断，但是也有可能会导致无法中断线程（虽然这个可能性很小，但是只要一旦发生这种情况就会造成死循环了）。</p>
+<p>　　下面解释一下这段代码为何有可能导致无法中断线程。在前面已经解释过，每个线程在运行过程中都有自己的工作内存，那么线程1在运行的时候，会将stop变量的值拷贝一份放在自己的工作内存当中。</p>
+<p>　　那么当线程2更改了stop变量的值之后，但是还没来得及写入主存当中，线程2转去做其他事情了，那么线程1由于不知道线程2对stop变量的更改，因此还会一直循环下去。</p>
+<p>　　但是用volatile修饰之后就变得不一样了：</p>
+<p>　　第一：使用volatile关键字会强制将修改的值立即写入主存；</p>
+<p>　　第二：使用volatile关键字的话，当线程2进行修改时，会导致线程1的工作内存中缓存变量stop的缓存行无效（反映到硬件层的话，就是CPU的L1或者L2缓存中对应的缓存行无效）；</p>
+<p>　　第三：由于线程1的工作内存中缓存变量stop的缓存行无效，所以线程1再次读取变量stop的值时会去主存读取。</p>
+<p>　　那么在线程2修改stop值时（当然这里包括2个操作，修改线程2工作内存中的值，然后将修改后的值写入内存），会使得线程1的工作内存中缓存变量stop的缓存行无效，然后线程1读取时，发现自己的缓存行无效，它会等待缓存行对应的主存地址被更新之后，然后去对应的主存读取最新的值。</p>
+<p>　　那么线程1读取到的就是最新的正确的值。</p>
+<p>####2.volatile保证原子性吗？</p>
+<p>　　从上面知道volatile关键字保证了操作的可见性，但是volatile能保证对变量的操作是原子性吗？</p>
+<p>　　下面看一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public volatile int inc = 0;</span><br><span class="line">     </span><br><span class="line">    public void increase() &#123;</span><br><span class="line">        inc++;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">         </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行它会发现每次运行结果都不一致，都是一个小于10000的数字。</p>
+<p>　　这里可能会有疑问，上面是对变量inc进行自增操作，由于volatile保证了可见性，那么在每个线程中对inc自增完之后，在其他线程中都能看到修改后的值啊，所以有10个线程分别进行了1000次操作，那么最终inc的值应该是1000*10=10000。</p>
+<p>　　这里面就有一个误区了，volatile关键字能保证可见性没有错，但是上面的程序错在没能保证原子性。可见性只能保证每次读取的是最新的值，但是volatile没办法保证对变量的操作的原子性。</p>
+<p>　　在前面已经提到过，自增操作是不具备原子性的，它包括读取变量的原始值、进行加1操作、写入工作内存。那么就是说自增操作的三个子操作可能会分割开执行，就有可能导致下面这种情况出现：</p>
+<p>　　假如某个时刻变量inc的值为10，</p>
+<p>　　线程1对变量进行自增操作，线程1先读取了变量inc的原始值，然后线程1被阻塞了；</p>
+<p>　　然后线程2对变量进行自增操作，线程2也去读取变量inc的原始值，由于线程1只是对变量inc进行读取操作，而没有对变量进行修改操作，所以不会导致线程2的工作内存中缓存变量inc的缓存行无效，所以线程2会直接去主存读取inc的值，发现inc的值时10，然后进行加1操作，并把11写入工作内存，最后写入主存。</p>
+<p>　　然后线程1接着进行加1操作，由于已经读取了inc的值，注意此时在线程1的工作内存中inc的值仍然为10，所以线程1对inc进行加1操作后inc的值为11，然后将11写入工作内存，最后写入主存。</p>
+<p>　　那么两个线程分别进行了一次自增操作后，inc只增加了1。</p>
+<p>　　解释到这里，可能有朋友会有疑问，不对啊，前面不是保证一个变量在修改volatile变量时，会让缓存行无效吗？然后其他线程去读就会读到新的值，对，这个没错。这个就是上面的happens-before规则中的volatile变量规则，但是要注意，线程1对变量进行读取操作之后，被阻塞了的话，并没有对inc值进行修改。然后虽然volatile能保证线程2对变量inc的值读取是从内存中读取的，但是线程1没有进行修改，所以线程2根本就不会看到修改的值。</p>
+<p>　　根源就在这里，自增操作不是原子性操作，而且volatile也无法保证对变量的任何操作都是原子性的。</p>
+<p>　　把上面的代码改成以下任何一种都可以达到效果：</p>
+<p>　　采用synchronized：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public  int inc = 0;</span><br><span class="line">    </span><br><span class="line">    public synchronized void increase() &#123;</span><br><span class="line">        inc++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>采用Lock：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class Test &#123;</span><br><span class="line">    public  int inc = 0;</span><br><span class="line">    Lock lock = new ReentrantLock();</span><br><span class="line">    </span><br><span class="line">    public  void increase() &#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        try &#123;</span><br><span class="line">            inc++;</span><br><span class="line">        &#125; finally&#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        final Test test = new Test();</span><br><span class="line">        for(int i=0;i&lt;10;i++)&#123;</span><br><span class="line">            new Thread()&#123;</span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    for(int j=0;j&lt;1000;j++)</span><br><span class="line">                        test.increase();</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;.start();</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(Thread.activeCount()&gt;1)  //保证前面的线程都执行完</span><br><span class="line">            Thread.yield();</span><br><span class="line">        System.out.println(test.inc);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>####3.volatile能保证有序性吗？</p>
+<p>　　在前面提到volatile关键字能禁止指令重排序，所以volatile能在一定程度上保证有序性。</p>
+<p>　　volatile关键字禁止指令重排序有两层意思：</p>
+<p>　　1）当程序执行到volatile变量的读操作或者写操作时，在其前面的操作的更改肯定全部已经进行，且结果已经对后面的操作可见；在其后面的操作肯定还没有进行；</p>
+<p>　　2）在进行指令优化时，不能将在对volatile变量访问的语句放在其后面执行，也不能把volatile变量后面的语句放到其前面执行。<br>          举个简单的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//x、y为非volatile变量</span><br><span class="line">//flag为volatile变量</span><br><span class="line"> </span><br><span class="line">x = 2;        //语句1</span><br><span class="line">y = 0;        //语句2</span><br><span class="line">flag = true;  //语句3</span><br><span class="line">x = 4;         //语句4</span><br><span class="line">y = -1;       //语句5</span><br></pre></td></tr></table></figure></p>
+<p>　由于flag变量为volatile变量，那么在进行指令重排序的过程的时候，不会将语句3放到语句1、语句2前面，也不会讲语句3放到语句4、语句5后面。但是要注意语句1和语句2的顺序、语句4和语句5的顺序是不作任何保证的。</p>
+<p>　　并且volatile关键字能保证，执行到语句3时，语句1和语句2必定是执行完毕了的，且语句1和语句2的执行结果对语句3、语句4、语句5是可见的。</p>
+<p>　　那么我们回到前面举的一个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//线程1:</span><br><span class="line">context = loadContext();   //语句1</span><br><span class="line">inited = true;             //语句2</span><br><span class="line"> </span><br><span class="line">//线程2:</span><br><span class="line">while(!inited )&#123;</span><br><span class="line">  sleep()</span><br><span class="line">&#125;</span><br><span class="line">doSomethingwithconfig(context);</span><br></pre></td></tr></table></figure></p>
+<p>　前面举这个例子的时候，提到有可能语句2会在语句1之前执行，那么久可能导致context还没被初始化，而线程2中就使用未初始化的context去进行操作，导致程序出错。</p>
+<p>　　这里如果用volatile关键字对inited变量进行修饰，就不会出现这种问题了，因为当执行到语句2时，必定能保证context已经初始化完毕。</p>
+<p>####4.volatile的原理和实现机制</p>
+<p>　　前面讲述了源于volatile关键字的一些使用，下面我们来探讨一下volatile到底如何保证可见性和禁止指令重排序的。</p>
+<p>　　下面这段话摘自《深入理解Java虚拟机》：</p>
+<p>　　“观察加入volatile关键字和没有加入volatile关键字时所生成的汇编代码发现，加入volatile关键字时，会多出一个lock前缀指令”</p>
+<p>　　lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供3个功能：</p>
+<p>　　1）它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部完成；</p>
+<p>　　2）它会强制将对缓存的修改操作立即写入主存；</p>
+<p>　　3）如果是写操作，它会导致其他CPU中对应的缓存行无效。   </p>
+<h3 id="三、使用volatile关键字的场景"><a href="#三、使用volatile关键字的场景" class="headerlink" title="三、使用volatile关键字的场景"></a>三、使用volatile关键字的场景</h3><p>synchronized关键字是防止多个线程同时执行一段代码，那么就会很影响程序执行效率，而volatile关键字在某些情况下性能要优于synchronized，但是要注意volatile关键字是无法替代synchronized关键字的，因为volatile关键字无法保证操作的原子性。通常来说，使用volatile必须具备以下2个条件：</p>
+<p>　　1）对变量的写操作不依赖于当前值</p>
+<p>　　2）该变量没有包含在具有其他变量的不变式中</p>
+<p>　　实际上，这些条件表明，可以被写入 volatile 变量的这些有效值独立于任何程序的状态，包括变量的当前状态。</p>
+<p>　　事实上，我的理解就是上面的2个条件需要保证操作是原子性操作，才能保证使用volatile关键字的程序在并发时能够正确执行。</p>
+<p>　　下面列举几个Java中使用volatile的几个场景。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">volatile boolean flag = false;</span><br><span class="line"> </span><br><span class="line">while(!flag)&#123;</span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">public void setFlag() &#123;</span><br><span class="line">    flag = true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">volatile boolean inited = false;</span><br><span class="line">//线程1:</span><br><span class="line">context = loadContext();  </span><br><span class="line">inited = true;            </span><br><span class="line"> </span><br><span class="line">//线程2:</span><br><span class="line">while(!inited )&#123;</span><br><span class="line">sleep()</span><br><span class="line">&#125;</span><br><span class="line">doSomethingwithconfig(context);</span><br></pre></td></tr></table></figure>
 
       
 
@@ -185,7 +263,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Bootstrap</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -241,7 +319,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/12/29/volatile关键字/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -255,18 +333,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/16/设计模式学习（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          设计模式学习（一）
+          Eclipse里jsp文件Bootstrap的css实效解决办法
         
       </div>
     </a>
   
   
-    <a href="/2017/12/29/volatile关键字/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">volatile关键字</div>
+    <a href="/2017/01/24/Git继续学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Git继续学习</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -293,7 +371,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、Java内存模型："><span class="toc-number">1.</span> <span class="toc-text">一、Java内存模型：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、使用volatile关键字的场景"><span class="toc-number">2.</span> <span class="toc-text">三、使用volatile关键字的场景</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -311,8 +389,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/", 
-    sourceId: "Eclipse里jsp文件Bootstrap的css实效解决办法",
+    url: "http://yoursite.com/2017/12/29/volatile关键字/", 
+    sourceId: "volatile关键字",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };

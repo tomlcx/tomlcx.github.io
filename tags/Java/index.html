@@ -6,20 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Eclipse里jsp文件Bootstrap的css实效解决办法 | Adler的博客</title>
+  <title>Tag: Java | Adler的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
-<meta name="keywords" content="Bootstrap">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Eclipse里jsp文件Bootstrap的css实效解决办法">
-<meta property="og:url" content="http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/index.html">
+  <meta name="keywords" content="后端、前端、机器学习、算法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adler的博客">
+<meta property="og:url" content="http://yoursite.com/tags/Java/index.html">
 <meta property="og:site_name" content="Adler的博客">
-<meta property="og:description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-09T12:43:03.363Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Eclipse里jsp文件Bootstrap的css实效解决办法">
-<meta name="twitter:description" content="在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像https://blog.csdn.net/hyh0327/article/details/62893301这样，可还是无法解决。之后看了http://blog.csdn.n">
+<meta name="twitter:title" content="Adler的博客">
   
     <link rel="alternative" href="/atom.xml" title="Adler的博客" type="application/atom+xml">
   
@@ -141,190 +137,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Eclipse里jsp文件Bootstrap的css实效解决办法" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Eclipse里jsp文件Bootstrap的css实效解决办法
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/12/29/volatile关键字/" class="archive-article-date">
+  	<time datetime="2017-12-29T11:07:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-29</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/12/29/volatile关键字/">volatile关键字</a>
     </h1>
   
 
-        
-        <a href="/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/" class="archive-article-date">
-  	<time datetime="2018-05-08T01:40:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在Eclipse中新建了一个Project，打算用Bootstrap美化一下页面，可是发现在本地引用Bootstrap失败，用火狐检查源码发现原因是Bootstrap.min.css一直无法引入。于是以为是引用路径的问题，就像<a href="https://blog.csdn.net/hyh0327/article/details/62893301" target="_blank" rel="noopener">https://blog.csdn.net/hyh0327/article/details/62893301</a><br>这样，可还是无法解决。之后看了<a href="http://blog.csdn.net/u013456370/article/details/59483687" target="_blank" rel="noopener">http://blog.csdn.net/u013456370/article/details/59483687</a><br><a id="more"></a><br>方法一：加上：${pageContext.request.contextPath }/</p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/easyui.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/icon.css"></p>
-<p><link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/static/theme/css/yuqing/demo.css"></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.min.js"></script></p>
-<p><script type="text/javascript" src="${pageContext.request.contextPath }/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script>.</p>
-<p>方法二：<br>&lt;%@ page language=”Java” contentType=”text/html; charset=UTF-8”<br>    pageEncoding=”UTF-8”%&gt;<br>&lt;%<br>String path = request.getContextPath();<br>String basePath = request.getScheme()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;<br>&lt;!DOCTYPE html&gt;</p>
-<p><html></html></p>
-<head><br><base href="<%=basePath%>"><br><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><br><title>Insert title here</title><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/easyui.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/icon.css"><br><link rel="stylesheet" type="text/css" href="<%=basePath%>/static/theme/css/yuqing/demo.css"><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.min.js"></script><br><script type="text/javascript" src="<%=basePath%>/static/js/ywzbindex/yuqing/jquery.easyui.min.js"></script><br></head>
-
-<p>问题还是无法解决。在差点放弃的时候，在Eclipse中对WebContent文件夹刷新了一下，出现了其下的Bootstrap-3.37-dist文件夹，问题才得到解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Bootstrap</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/05/16/设计模式学习（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式学习（一）
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/12/29/volatile关键字/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">volatile关键字</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录，不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
- 
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://yoursite.com/2018/05/08/Eclipse里jsp文件Bootstrap的css实效解决办法/", 
-    sourceId: "Eclipse里jsp文件Bootstrap的css实效解决办法",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -347,9 +213,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
