@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Adler的博客">
 <meta property="og:description" content="前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。 1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动12345678&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.sprin">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-28T11:09:13.484Z">
+<meta property="og:updated_time" content="2018-07-28T11:11:13.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot与JPA">
 <meta name="twitter:description" content="前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。 1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动12345678&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.sprin">
@@ -167,6 +167,7 @@
       
         <p>前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。</p>
 <h5 id="1-pom-xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动"><a href="#1-pom-xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动" class="headerlink" title="1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动"></a>1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h5 id="2-在-src-main-resources-application-properties中配置spring-datasource及hibernate方言-Spring-boot-默认使用hibernate作为JPA的实现"><a href="#2-在-src-main-resources-application-properties中配置spring-datasource及hibernate方言-Spring-boot-默认使用hibernate作为JPA的实现" class="headerlink" title="2.在/src/main/resources/application.properties中配置spring datasource及hibernate方言(Spring boot 默认使用hibernate作为JPA的实现)"></a>2.在/src/main/resources/application.properties中配置spring datasource及hibernate方言(Spring boot 默认使用hibernate作为JPA的实现)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/test?useSSL=false</span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=root</span><br><span class="line">spring.datasource.tomcat.max-active=100</span><br><span class="line">spring.datasource.tomcat.max-idle=200</span><br><span class="line">spring.datasource.tomcat.initialSize=20</span><br><span class="line">spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect</span><br></pre></td></tr></table></figure>
 <h5 id="3-定义Entity和Repository-接口"><a href="#3-定义Entity和Repository-接口" class="headerlink" title="3.定义Entity和Repository(接口)"></a>3.定义Entity和Repository(接口)</h5><p>Entity–Account实体类如下:<br>@Entity会被spring扫描并加载，</p>
 <p>  @Id注解在主键上</p>
@@ -433,11 +434,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">数据结构</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>
