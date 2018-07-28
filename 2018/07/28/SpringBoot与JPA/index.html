@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 设计模式 | Adler的博客</title>
+  <title>SpringBoot与JPA | Adler的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="后端、前端、机器学习、算法">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Adler的博客">
-<meta property="og:url" content="http://yoursite.com/tags/设计模式/index.html">
+  <meta name="description" content="前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。 1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动12345678&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.sprin">
+<meta name="keywords" content="JPA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot与JPA">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/SpringBoot与JPA/index.html">
 <meta property="og:site_name" content="Adler的博客">
+<meta property="og:description" content="前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。 1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动12345678&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.sprin">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-28T11:09:13.484Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Adler的博客">
+<meta name="twitter:title" content="SpringBoot与JPA">
+<meta name="twitter:description" content="前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。 1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动12345678&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;org.sprin">
   
     <link rel="alternative" href="/atom.xml" title="Adler的博客" type="application/atom+xml">
   
@@ -141,60 +145,178 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-SpringBoot与JPA" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/16/设计模式学习（一）/" class="archive-article-date">
-  	<time datetime="2018-05-16T12:34:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/16/设计模式学习（一）/">设计模式学习（一）</a>
+    <h1 class="article-title" itemprop="name">
+      SpringBoot与JPA
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/28/SpringBoot与JPA/" class="archive-article-date">
+  	<time datetime="2018-07-28T10:59:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前几日用SpringBoot与Mybatis在工程中写一些查询，由于是第一次使用加上需要配置的文件又多，测试就没有通过。后来干脆改用JPA，发现JPA也太简单好用了，特写此博客记录JPA。</p>
+<h5 id="1-pom-xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动"><a href="#1-pom-xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动" class="headerlink" title="1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动"></a>1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;mysql&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="2-在-src-main-resources-application-properties中配置spring-datasource及hibernate方言-Spring-boot-默认使用hibernate作为JPA的实现"><a href="#2-在-src-main-resources-application-properties中配置spring-datasource及hibernate方言-Spring-boot-默认使用hibernate作为JPA的实现" class="headerlink" title="2.在/src/main/resources/application.properties中配置spring datasource及hibernate方言(Spring boot 默认使用hibernate作为JPA的实现)"></a>2.在/src/main/resources/application.properties中配置spring datasource及hibernate方言(Spring boot 默认使用hibernate作为JPA的实现)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.url=jdbc:mysql://localhost:3306/test?useSSL=false</span><br><span class="line">spring.datasource.username=root</span><br><span class="line">spring.datasource.password=root</span><br><span class="line">spring.datasource.tomcat.max-active=100</span><br><span class="line">spring.datasource.tomcat.max-idle=200</span><br><span class="line">spring.datasource.tomcat.initialSize=20</span><br><span class="line">spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect</span><br></pre></td></tr></table></figure>
+<h5 id="3-定义Entity和Repository-接口"><a href="#3-定义Entity和Repository-接口" class="headerlink" title="3.定义Entity和Repository(接口)"></a>3.定义Entity和Repository(接口)</h5><p>Entity–Account实体类如下:<br>@Entity会被spring扫描并加载，</p>
+<p>  @Id注解在主键上</p>
+<p>  @Column name=”call_phone” 指该字段对应的数据库的字段名，如果相同就不需要定义。数据库下划线间隔和代码中的驼峰法视为相同，如数据库字段create_time等价于Java类中的createTime，因此不需要用@Column注解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@Entity</span><br><span class="line">public class Account</span><br><span class="line">&#123;</span><br><span class="line">    @Id</span><br><span class="line">    private String id;</span><br><span class="line">    private String account;</span><br><span class="line">    @Column(name = &quot;call_phone&quot;)</span><br><span class="line">    private String phone;</span><br><span class="line">    @Column(name = &quot;nick_name&quot;)</span><br><span class="line">    private String nickname;</span><br><span class="line">    private String password;</span><br><span class="line">    private String salt;</span><br><span class="line">    private int userType;</span><br><span class="line">    private String createUser;</span><br><span class="line">    private Timestamp createTime;</span><br><span class="line">    private int state;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Repository如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Repository</span><br><span class="line">public interface AccountRepository extends JpaRepository&lt;Account, String&gt;</span><br><span class="line">&#123;</span><br><span class="line">    Account findOneByAccount(String account);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-在其他-Component中调用"><a href="#4-在其他-Component中调用" class="headerlink" title="4.在其他@Component中调用"></a>4.在其他@Component中调用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/subsystem&quot;)</span><br><span class="line">public class SubsystemAuthorityService</span><br><span class="line">&#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    AccountRepository accountRepository;</span><br><span class="line"></span><br><span class="line">    @PostMapping(path = &quot;/admin/info&quot;)</span><br><span class="line">    public String getAdminInfo(String currentAccount)</span><br><span class="line">    &#123;</span><br><span class="line">        Account account = accountRepository.findOneByAccount(currentAccount);</span><br><span class="line">        System.out.println(account);</span><br><span class="line">        return account.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/07/28/SpringBoot与JPA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/10/回顾IM服务器配置/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">回顾IM服务器配置</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-pom-xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动"><span class="toc-number">1.</span> <span class="toc-text">1.pom.xml文件下添加如下依赖，引入spring-boot-jpa的jar包，以及mysql驱动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-在-src-main-resources-application-properties中配置spring-datasource及hibernate方言-Spring-boot-默认使用hibernate作为JPA的实现"><span class="toc-number">2.</span> <span class="toc-text">2.在/src/main/resources/application.properties中配置spring datasource及hibernate方言(Spring boot 默认使用hibernate作为JPA的实现)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-定义Entity和Repository-接口"><span class="toc-number">3.</span> <span class="toc-text">3.定义Entity和Repository(接口)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-在其他-Component中调用"><span class="toc-number">4.</span> <span class="toc-text">4.在其他@Component中调用</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+ 
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://yoursite.com/2018/07/28/SpringBoot与JPA/", 
+    sourceId: "SpringBoot与JPA",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -217,9 +339,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
