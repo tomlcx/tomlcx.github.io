@@ -227,7 +227,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下：<br><img src="/2019/01/06/记一次云服务上传优化/clipboard.png" alt="Alt text"></p>
+        <p>最近有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下：<br><img src="/2019/01/06/记一次云服务上传优化/clipboard.png" alt="Alt text"></p>
 <p>一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。<br>总结一下原因：为了提高上传速度，便采用了线程池的方式，异步上传。当短时间内有大量服务被调用时，便产生了大量线程上传，极易产生线程堆积导致集体上传失败。<br>找到了原因，那该如何解决呢，可能减少线程池创建线程数量是最简单的方式，可是同时也会拖累其他服务的速度。后来采用了针对上传服务先进入kafka，再传给上传服务，以控制上传服务线程的数量。</p>
 
       
@@ -969,11 +969,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color5">JDBC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">JDBC</a>
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
