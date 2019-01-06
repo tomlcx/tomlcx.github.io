@@ -143,6 +143,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-记一次云服务上传优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/06/记一次云服务上传优化/">记一次云服务上传优化</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/06/记一次云服务上传优化/" class="archive-article-date">
+  	<time datetime="2019-01-06T10:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下：<br><img src="/2019/01/06/记一次云服务上传优化/./clipboard.png" alt="Alt text"></p>
+<p>一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。<br>总结一下原因：为了提高上传速度，便采用了线程池的方式，异步上传。当短时间内有大量服务被调用时，便产生了大量线程上传，极易产生线程堆积导致集体上传失败。<br>找到了原因，那该如何解决呢，可能减少线程池创建线程数量是最简单的方式，可是同时也会拖累其他服务的速度。后来采用了针对上传服务先进入kafka，再传给上传服务，以控制上传服务线程的数量。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/06/记一次云服务上传优化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PathVariable-和-RequestParam" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -821,84 +885,6 @@
 
 
   
-    <article id="post-Git继续学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/Git继续学习/">Git继续学习</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/24/Git继续学习/" class="archive-article-date">
-  	<time datetime="2017-01-24T12:33:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>再次学习 git 完善以前没有注意到的问题，主要学习廖雪峰的git教程，基本命令在前面已经总结，但是具体的实际开发过程中需要注意的场景将重新总结。希望学习的可以访问原网站，一下是自己的总结，方便以后个人查询</p>
-</blockquote>
-<h2 id="Git工作区，暂存区与版本库"><a href="#Git工作区，暂存区与版本库" class="headerlink" title="Git工作区，暂存区与版本库"></a>Git工作区，暂存区与版本库</h2><p><img src="/2017/01/24/Git继续学习/../img/git4.jpg" alt="Alt text"></p>
-<p>git add: 将文件从工作区添加到暂存区<br>git commit: 将暂存区存储到版本库<br></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/24/Git继续学习/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -913,7 +899,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 Adler
+    		&copy; 2019 Adler
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -992,11 +978,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">JDBC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">springboot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,10 +1007,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">杂谈</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
