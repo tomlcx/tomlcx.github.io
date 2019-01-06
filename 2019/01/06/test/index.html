@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>陆奇演讲:如何成为一个优秀的工程师 | Adler的博客</title>
+  <title>记一次云服务上传优化 | Adler的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、Believe in 技术首先要相信技术，我刚才已经讲了，整个我们工业界，特别是像百度这样的公司，对技术坚定的、不动摇的信念特别重要。 我也分享一下，盖茨提到微软公司的宗旨就是：写软件代表的是世界的将来。 为什么？未来任何一个工业都会变成软件工业。盖茨是对的，因为任何工业任何行业自动化的程度会越来越高，最后你所处理的就是信息和知识。 但现在软件的做法又往前提了一次，因为在人工智能时代，不光是写">
-<meta name="keywords" content="杂谈">
+  <meta name="description" content="有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下： 一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。总结一下原因：为了提高上传">
+<meta name="keywords" content="后端、前端、机器学习、算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="陆奇演讲:如何成为一个优秀的工程师">
-<meta property="og:url" content="http://yoursite.com/2018/05/22/陆奇演讲-如何成为一个优秀的工程师/index.html">
+<meta property="og:title" content="记一次云服务上传优化">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/test/index.html">
 <meta property="og:site_name" content="Adler的博客">
-<meta property="og:description" content="1、Believe in 技术首先要相信技术，我刚才已经讲了，整个我们工业界，特别是像百度这样的公司，对技术坚定的、不动摇的信念特别重要。 我也分享一下，盖茨提到微软公司的宗旨就是：写软件代表的是世界的将来。 为什么？未来任何一个工业都会变成软件工业。盖茨是对的，因为任何工业任何行业自动化的程度会越来越高，最后你所处理的就是信息和知识。 但现在软件的做法又往前提了一次，因为在人工智能时代，不光是写">
+<meta property="og:description" content="有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下： 一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。总结一下原因：为了提高上传">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-03T11:19:37.518Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/test/记一次云服务上传优化/clipboard.png">
+<meta property="og:updated_time" content="2019-01-06T10:23:32.523Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="陆奇演讲:如何成为一个优秀的工程师">
-<meta name="twitter:description" content="1、Believe in 技术首先要相信技术，我刚才已经讲了，整个我们工业界，特别是像百度这样的公司，对技术坚定的、不动摇的信念特别重要。 我也分享一下，盖茨提到微软公司的宗旨就是：写软件代表的是世界的将来。 为什么？未来任何一个工业都会变成软件工业。盖茨是对的，因为任何工业任何行业自动化的程度会越来越高，最后你所处理的就是信息和知识。 但现在软件的做法又往前提了一次，因为在人工智能时代，不光是写">
+<meta name="twitter:title" content="记一次云服务上传优化">
+<meta name="twitter:description" content="有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下： 一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。总结一下原因：为了提高上传">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/test/记一次云服务上传优化/clipboard.png">
   
     <link rel="alternative" href="/atom.xml" title="Adler的博客" type="application/atom+xml">
   
@@ -145,54 +147,28 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-陆奇演讲-如何成为一个优秀的工程师" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-test" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      陆奇演讲:如何成为一个优秀的工程师
+      记一次云服务上传优化
     </h1>
   
 
         
-        <a href="/2018/05/22/陆奇演讲-如何成为一个优秀的工程师/" class="archive-article-date">
-  	<time datetime="2018-05-22T12:55:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-22</time>
+        <a href="/2019/01/06/test/" class="archive-article-date">
+  	<time datetime="2019-01-06T10:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1、Believe-in-技术"><a href="#1、Believe-in-技术" class="headerlink" title="1、Believe in 技术"></a>1、Believe in 技术</h3><p>首先要相信技术，我刚才已经讲了，整个我们工业界，特别是像百度这样的公司，对技术坚定的、不动摇的信念特别重要。</p>
-<p>我也分享一下，盖茨提到微软公司的宗旨就是：写软件代表的是世界的将来。</p>
-<p>为什么？未来任何一个工业都会变成软件工业。盖茨是对的，因为任何工业任何行业自动化的程度会越来越高，最后你所处理的就是信息和知识。</p>
-<p>但现在软件的做法又往前提了一次，因为在人工智能时代，不光是写代码，你必须懂算法，懂硬件，懂数据，整个人工智能的开发过程有一个很大程度的提高，但是，技术，特别是我们这个工业所代表的技术一定是将来任何工业的前沿。</p>
-<p>所以我们一定要有一个坚定不移的深刻的理念，相信整个世界终究是为技术所驱动的。<br><a id="more"></a></p>
-<h3 id="2、站在巨人的肩膀上做创新"><a href="#2、站在巨人的肩膀上做创新" class="headerlink" title="2、站在巨人的肩膀上做创新"></a>2、站在巨人的肩膀上做创新</h3><p>我们观察一下，在美国硅谷、在中国，互联网创业公司也好，大型公司也好，大家的起点是越来越高的。为什么现在创新速度那么快？主要是起点高了。我们可以使用的代码模块，使用的服务的能力，都是大大的提升。</p>
-<p>在内部我想强调这一点，很多大公司包括微软在内，内部的Code都重做了无数遍。</p>
-<p>我现在的要求是，每一次你写一行新的代码，第一要做的，先想一想你这行代码值得不值得写，是不是有人已经做了同样的工作，可能做得比你还好一点。有没有其他人已经解决这个问题，然后你可以把你的时间放在更好的创新上。</p>
-<p>特别是大公司里面重复或者是几乎重复的Code实在太多，浪费太多的资源，对每个人的职业生涯都不是好事情。</p>
-<p>我再强调，在大公司内部，你写代码之前想一想，你这行代码要不要写，是不是别人已经有了，站在别人的肩膀上去做这件事情。</p>
-<h3 id="3、追求Engineering-Excellence"><a href="#3、追求Engineering-Excellence" class="headerlink" title="3、追求Engineering Excellence"></a>3、追求Engineering Excellence</h3><p>我要另外强调的一点就是Engineering Excellence，工程的技术的卓越性和能力。</p>
-<p>任何市场上竞争就像打仗一样，就看你的部队体能、质量，每一个士兵他的训练的程度，和你给他使机关枪、坦克，还是什么样的武器。</p>
-<p>所以Engineering Excellence跟这个类比，我们要建的是一支世界上最强的部队，每一个士兵，每一个领军人，每个人的能力，他的训练都是超强的，然后我们给每个人提供的工具和武器都是一流的。</p>
-<p>所以Engineering Excellence是一个永无止境的、个人的、团队的，能力的追求和工具平台的创新，综合在一起可以给我们带来的长期的、核心的竞争力，为社会创造价值，最终的目的是给每个用户、每个企业、整个社会创造价值。</p>
-<p>我另外还要在这里强调的一点就是Relentless pursuit of excellence：永无止境的不断的持续的追求。</p>
-<p>我们要么不做，要做的事情一定做最好，这是我对大家的要求。数据库也好，做大平台也好，大数据也好，我们要做什么事情，我们一定要下决心，这是我对你们每个人的要求，做什么事情一定要做最好，一定要是做业界最强的。</p>
-<h3 id="4、每天学习"><a href="#4、每天学习" class="headerlink" title="4、每天学习"></a>4、每天学习</h3><p>每天学习，可能是对每个人都是最最重要的。</p>
-<p>我今天分享一下，我自己怎么想我自己的。就很简单一个概念，我把自己想象是一个软件、一个代码，今天的版本一定要比昨天版本好，明天的版本肯定会比今天好，因为即使犯了错误，我里面有If statement，说如果见到这个错误，绝对不要再犯。</p>
-<p>英语，另外有一句说法就是Life is too short, don’t live the same day twice. 同样一天不要重活两次。每天都是不一样，每天为什么不一样，因为每天都变成最好，每天都变得更好。今天的版本一定要比昨天好，每个好的、杰出的工程师，杰出的技术领袖，一定要保持自己学习的能力，特别是学习的范围。</p>
-<p>在这上面我也稍微引申一下，做Computer science的，如果只学Computer science，不去学一些其他的行业，肯定不够。我举个例子，经济学必须要学。为什么这样讲？Computer science它有个很大的限制，他是假定你有输入以后有输出，这种解决问题的方式有它的好处，但有它的限制性。</p>
-<p>我给大家举个例子，地图导航，如果你纯粹用这个方式去做，你只是把一个拥挤的地方移到另外一个拥挤的地方。经济学，它对问题的建模是不一样的。它起点是假定是一个整体的一个生态，每个人的输入都是另外一个人的输出，你要用经济学的方式来描述地图导航的问题，你就会去算一个Equilibrium，市场也是这样。</p>
-<p>如果把深度学习真的要想彻底，必须把物理重学一遍，把生物学看一遍，再把进化论再看一遍。因为深度学习跟这些东西完全相关，自己肯定想不清楚，要彻底想清楚，必须学。</p>
-<p>另外，学产品，我以前跟所有的工程师都讲，如果不懂产品，你不可能成为一个最好的工程师。真正要做世界一流的工程师不光要懂产品，还要懂整个商业，懂生态。因为你的工作的责任，是能够看到将来，把技术展望到将来的需求，把平台、把开发流程、把你的团队为将来做准备。所以学习是非常非常重要的。</p>
-<h3 id="5、Ownership"><a href="#5、Ownership" class="headerlink" title="5、Ownership"></a>5、Ownership</h3><p>最后是从我做起。</p>
-<p>我们公司有个非常大的使命，用科技让复杂的世界更简单。整个世界非常非常复杂，人其实所做的事情基本上都是Reduce entropy。</p>
-<p>因为从热力学第二定律来讲，世界是会变得越来越乱的，我们想做的事情就是把它变的更简单，让我们生活变得更美好。</p>
-<p>而且具体的，我们可以通过人工智能技术来做到唤醒万物，但是这一切是通过每一个人的一点一滴的行为累计起来，从我做起。还有Ownership，看到机会不需要问别人，有机会就去做，看到问题也不要去问别人，就把它Fix。</p>
-<p>把我们的使命、把我们的公司当成我们自己每个人的事业来做，我可以坦诚的给每个人讲，如果你把公司的使命，把公司的事业，当成你自己个人的事业，Own everything，你在职业生涯一定是走得最快。从我做起，从身边的每一件事情做起。</p>
+        <p>有一个往阿里云进行文件上传的服务最近出了问题，出现大面积的上传失败，报错如下：<br><img src="/2019/01/06/test/./记一次云服务上传优化/clipboard.png" alt="Alt text"></p>
+<p>一开始查询的原因是服务器与本地时区的差异的问题，怎么可能呢？困惑的时候注意到每次上传失败的请求时间与超时时间都是15分钟左右，再一查OSS对上传文件的时间要求果然和想的一模一样：发起请求的服务器时间和阿里云OSS服务器时间相差超过15分钟，便会抛出RequestTimeTooSkewed异常。<br>总结一下原因：为了提高上传速度，便采用了线程池的方式，异步上传。当短时间内有大量服务被调用时，便产生了大量线程上传，极易产生线程堆积导致集体上传失败。<br>找到了原因，那该如何解决呢，可能减少线程池创建线程数量是最简单的方式，可是同时也会拖累其他服务的速度。后来采用了针对上传服务先进入kafka，再传给上传服务，以控制上传服务线程的数量。</p>
 
       
 
@@ -201,17 +177,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂谈</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -262,7 +227,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/05/22/陆奇演讲-如何成为一个优秀的工程师/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/06/test/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -276,18 +241,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/05/23/JDBC的ResultSet接口学习笔记-一/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JDBC的ResultSet接口学习笔记(一)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/16/设计模式学习（一）/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">设计模式学习（一）</div>
+    <a href="/2019/01/06/记一次云服务上传优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">记一次云服务上传优化</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -314,7 +270,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、Believe-in-技术"><span class="toc-number">1.</span> <span class="toc-text">1、Believe in 技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、站在巨人的肩膀上做创新"><span class="toc-number">2.</span> <span class="toc-text">2、站在巨人的肩膀上做创新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、追求Engineering-Excellence"><span class="toc-number">3.</span> <span class="toc-text">3、追求Engineering Excellence</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、每天学习"><span class="toc-number">4.</span> <span class="toc-text">4、每天学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、Ownership"><span class="toc-number">5.</span> <span class="toc-text">5、Ownership</span></a></li></ol>
+                    目录，不存在的…
                     </div>
                 </span>
             </div>
@@ -332,8 +288,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://yoursite.com/2018/05/22/陆奇演讲-如何成为一个优秀的工程师/", 
-    sourceId: "陆奇演讲-如何成为一个优秀的工程师",
+    url: "http://yoursite.com/2019/01/06/test/", 
+    sourceId: "test",
     productKey: "true",
     target: "cloud-tie-wrapper"
   };
