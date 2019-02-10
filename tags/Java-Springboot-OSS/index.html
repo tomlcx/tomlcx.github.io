@@ -6,24 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Git基础操作命令 | Adler的博客</title>
+  <title>Tag: Java,Springboot,OSS | Adler的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="git init git 初始化 git status 查询状态 git log 查看日志 git add 添加文件到暂存区 git commit 提交在暂存区的文件 git diff xxx xxx 比较文件 git branch 查看分支">
-<meta name="keywords" content="git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Git基础操作命令">
-<meta property="og:url" content="http://yoursite.com/2017/01/19/Git基础操作命令/index.html">
+  <meta name="keywords" content="后端、前端、机器学习、算法">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Adler的博客">
+<meta property="og:url" content="http://yoursite.com/tags/Java-Springboot-OSS/index.html">
 <meta property="og:site_name" content="Adler的博客">
-<meta property="og:description" content="git init git 初始化 git status 查询状态 git log 查看日志 git add 添加文件到暂存区 git commit 提交在暂存区的文件 git diff xxx xxx 比较文件 git branch 查看分支">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2017/01/19/img/git1.jpg">
-<meta property="og:image" content="http://yoursite.com/2017/01/19/img/git2.jpg">
-<meta property="og:image" content="http://yoursite.com/2017/01/19/img/git3.jpg">
-<meta property="og:updated_time" content="2018-06-03T11:21:47.142Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git基础操作命令">
-<meta name="twitter:description" content="git init git 初始化 git status 查询状态 git log 查看日志 git add 添加文件到暂存区 git commit 提交在暂存区的文件 git diff xxx xxx 比较文件 git branch 查看分支">
-<meta name="twitter:image" content="http://yoursite.com/2017/01/19/img/git1.jpg">
+<meta name="twitter:title" content="Adler的博客">
   
     <link rel="alternative" href="/atom.xml" title="Adler的博客" type="application/atom+xml">
   
@@ -149,202 +141,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Git基础操作命令" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Git基础操作命令
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/01/06/记一次云服务上传优化/" class="archive-article-date">
+  	<time datetime="2019-01-06T10:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/01/06/记一次云服务上传优化/">记一次云服务上传优化</a>
     </h1>
   
 
-        
-        <a href="/2017/01/19/Git基础操作命令/" class="archive-article-date">
-  	<time datetime="2017-01-19T12:07:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>git init git 初始化</p>
-<p>git status 查询状态</p>
-<p>git log 查看日志</p>
-<p>git add 添加文件到暂存区</p>
-<p>git commit 提交在暂存区的文件</p>
-<p>git diff xxx xxx 比较文件</p>
-<p>git branch 查看分支<br><a id="more"></a><br>git branch xxx 创建新的分支</p>
-<p>git checkout xx 切换分支</p>
-<p>git checkout -b xxx 创建新的分支并切换</p>
-<p>git merge master test 合并两个分支（当分支同一级都做了修改，合并的时候会出现冲突，具体参考下面的冲突）</p>
-<p>git show id 显示父级跟系版本的改动</p>
-<p>git branch -d test 删除分支</p>
-<p>merge conflict</p>
-<p>HEAD标记表示我的代码<br>中间部分是已修改的原始版本<br>底部标记的分支是表示该分支的代码</p>
-<p>方法：删除原始数据和不需要的留下来的代码，保留需要的代码</p>
-<p>git remote 查看远程库和创建远程数据库</p>
-<p>git remote add 名称 远程数据库地址</p>
-<p>git remote -v 显示详细的信息</p>
-<p>git push 名称 分支 推送到github</p>
-<p>git pull 名称 分支 github上拉取</p>
-<p>GitHub 上fork 是获取其他人的库，并不需要先clone本地然后在上传 fork显示其他人获取的数量<br>git fetch 更新远程分支的本地副本而实际的本地版本保持不变</p>
-<p>情景：在获取远程库副本到本地，进行操作的时候 git pull 相当等于git fetch 更新然后 git merge 进行合并<br>自己画图梳理了一下。<br><img src="/2017/01/19/Git基础操作命令/../img/git1.jpg" alt="Alt text"><br><img src="/2017/01/19/Git基础操作命令/../img/git2.jpg" alt="Alt text"><br><img src="/2017/01/19/Git基础操作命令/../img/git3.jpg" alt="Alt text"></p>
-<p>git merge master origin/master 合并本地数据库和远程数据库副本<br>解读完上述信息，合并保留需要的删除其他两个-&gt;git add 文件-&gt;git commit；</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java,Springboot,OSS</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2017/01/19/Git基础操作命令/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/01/24/Git继续学习/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Git继续学习
-        
-      </div>
-    </a>
   
   
-    <a href="/2016/12/23/排序算法稳定性分析/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">排序算法稳定性分析</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录，不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
- 
-  
-  
-  
-  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script>
-  var cloudTieConfig = {
-    url: "http://yoursite.com/2017/01/19/Git基础操作命令/", 
-    sourceId: "Git基础操作命令",
-    productKey: "true",
-    target: "cloud-tie-wrapper"
-  };
-</script>
-<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -367,9 +217,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
