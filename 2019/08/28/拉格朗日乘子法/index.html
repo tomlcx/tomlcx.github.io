@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pokemon.svg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pokemon.svg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近在学习 SVM 的过程中，遇到关于优化理论中拉格朗日乘子法的知识，本文是根据几篇文章总结得来的笔记。由于是刚刚接触，难免存在错误，还望指出。另外，本文不会聊到深层次的数学推导，仅仅是介绍拉格朗日乘子法的内容，应用，以及个人对它的感性理解。 什么是拉格朗日乘子法按照维基百科的定义，拉格朗日乘数法是一种寻找多元函数在其变量受到一个或多个条件的约束时的极值的方法。用数学式子表达为： 简单理解就是，我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拉格朗日乘子法">
+<meta property="og:url" content="http://yoursite.com/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="最近在学习 SVM 的过程中，遇到关于优化理论中拉格朗日乘子法的知识，本文是根据几篇文章总结得来的笔记。由于是刚刚接触，难免存在错误，还望指出。另外，本文不会聊到深层次的数学推导，仅仅是介绍拉格朗日乘子法的内容，应用，以及个人对它的感性理解。 什么是拉格朗日乘子法按照维基百科的定义，拉格朗日乘数法是一种寻找多元函数在其变量受到一个或多个条件的约束时的极值的方法。用数学式子表达为： 简单理解就是，我">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="http://jermmy.xyz/images/2017-7-27/lagrange1.png">
+<meta property="og:image" content="http://jermmy.xyz/images/2017-7-27/orange-gradient.png">
+<meta property="og:image" content="http://jermmy.xyz/images/2017-7-27/black-gradient.png">
+<meta property="og:image" content="http://jermmy.xyz/images/2017-7-27/LagrangeConstraints.jpg">
+<meta property="og:image" content="http://jermmy.xyz/images/2017-7-27/multiple-solution.jpg">
+<meta property="article:published_time" content="2019-08-28T10:09:16.000Z">
+<meta property="article:modified_time" content="2020-03-23T10:53:41.030Z">
+<meta property="article:author" content="Adler">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://jermmy.xyz/images/2017-7-27/lagrange1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/28/拉格朗日乘子法/"/>
+
+
+
+
+
+  <title>拉格朗日乘子法 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Adler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">拉格朗日乘子法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-28T18:09:16+08:00">
+                2019-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/08/28/拉格朗日乘子法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习 SVM 的过程中，遇到关于优化理论中拉格朗日乘子法的知识，本文是根据几篇文章总结得来的笔记。由于是刚刚接触，难免存在错误，还望指出。另外，本文不会聊到深层次的数学推导，仅仅是介绍拉格朗日乘子法的内容，应用，以及个人对它的感性理解。</p>
+<h2 id="什么是拉格朗日乘子法"><a href="#什么是拉格朗日乘子法" class="headerlink" title="什么是拉格朗日乘子法"></a>什么是拉格朗日乘子法</h2><p>按照维基百科的定义，拉格朗日乘数法是一种寻找多元函数在其变量受到一个或多个条件的约束时的极值的方法。用数学式子表达为：</p>
+<p>简单理解就是，我们要在满足这个等式的前提下，求函数的最小值（最大值道理相同）。这样的问题我们在高中的时候就遇到过了，只不过高中时遇到的限制条件  都比较简单，一般而言都可以将用的式子表示出来，然后用变量替换的方法代回求解。但是，如果的形式过于复杂，或者变量太多时，这种方法就失效了。而拉格朗日乘子法就是解决这类问题的通用策略。</p>
+<h2 id="拉格朗日乘子法的原理"><a href="#拉格朗日乘子法的原理" class="headerlink" title="拉格朗日乘子法的原理"></a>拉格朗日乘子法的原理</h2><h3 id="一个约束条件"><a href="#一个约束条件" class="headerlink" title="一个约束条件"></a>一个约束条件</h3><p>我们先从只有一个约束条件的情况入手，看看拉格朗日乘子法到底是怎么做的。</p>
+<a id="more"></a>
+
+<p>假设，我们的问题如下：</p>
+<p>当然，这个问题比较简单，直接用解出y再代入也可以求解，但这里我们准备用拉格朗日乘子法。<br>首先我们画出的图像，这个图像应该是3维的，但为了方便讲解，这里给出它的2维投影：</p>
+<p>​                                 <a href="http://jermmy.xyz/images/2017-7-27/lagrange1.png" target="_blank" rel="noopener"><img src="http://jermmy.xyz/images/2017-7-27/lagrange1.png" alt="img"></a></p>
+<p>图中的红色圆表示 ，越靠近原点的部分，值越小（表示“谷底”），这些圆又称为「等高线」，因为同一个圆代表的函数值相同。</p>
+<p>图中的蓝线代表 ，这里只取 的部分。</p>
+<p>整幅图像可以想象成一个巨大的山谷，原点是谷底，而我们的任务是在蓝线表示的道路上，找到最低的位置。</p>
+<p>那要如何找到这个最低点呢？注意，图中用橙色和黑色标记了两个点。如果我们走到了橙色这个位置，那么很明显，可以发现这个点肯定不是最低的，因为我们可以沿着蓝线继续往内部的圆走，当我们走到黑色这个点时，会发现没法再往里面走了，而且，这个时候如果继续沿蓝线走，我们的位置反而升高了，这时，我们基本可以认为：我们找到了在蓝线这个限制条件下的最低点。</p>
+<p>那么橙色这个点和黑色这个点有什么本质区别呢？拉格朗日观察到，黑点位置，蓝线和圆是相切的，而橙点位置显然不满足这个性质。那相切是否是必然的呢？拉格朗日告诉我们，是的，一定是相切的。而这一点，正是拉格朗日乘子法的核心。</p>
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>在正式理解拉格朗日乘子法的原理之前，我们要回顾一下梯度的概念。</p>
+<p>在数学里面，梯度指的是函数变化最快的方向。例如：在一元函数 中，梯度只能沿 x 轴正方向或负方向，而在二元函数中，梯度则是一个二维向量 。</p>
+<p>现在，我们要用到梯度一个重要的性质：梯度跟函数等高线是垂直的。</p>
+<p>证明需要用到一点极限的知识。</p>
+<p>梯度的数学定义为：假设是两个极小的变化量，根据全微分的知识可以得到：</p>
+<p>如果是在等高线方向的增量，那么这意味着 ，换句话说向量和向量的内积为 0。所以梯度和函数的等高线是垂直的。</p>
+<h3 id="拉格朗日乘子法的几何认识"><a href="#拉格朗日乘子法的几何认识" class="headerlink" title="拉格朗日乘子法的几何认识"></a>拉格朗日乘子法的几何认识</h3><p>现在，我们来感性地认识一下，为什么拉格朗日认为相切才能找到最低点（只是感性认识，不添加任何数学推导）。    </p>
+<p>​                                    <a href="http://jermmy.xyz/images/2017-7-27/orange-gradient.png" target="_blank" rel="noopener"><img src="http://jermmy.xyz/images/2017-7-27/orange-gradient.png" alt="img"></a>    </p>
+<p>在橙点这个位置，由于两条曲线不相切，所以橙线的梯度（上图橙色箭头）和蓝线的切线（蓝色虚线）肯定不垂直。在这种情况下，蓝线的两个切线方向，必定有一个往函数高处走（与梯度的夹角小于 90 度），有一个往函数低处走（与梯度的夹角大于 90 度）。所以，在两条曲线相交时，我们肯定不在最低点或最高点的位置。</p>
+<p>​                                        <a href="http://jermmy.xyz/images/2017-7-27/black-gradient.png" target="_blank" rel="noopener"><img src="http://jermmy.xyz/images/2017-7-27/black-gradient.png" alt="img"></a></p>
+<p>那么，反过来想，如果两条曲线相切（上图），那么在切点这个位置，蓝线的切线和橙线的梯度是垂直的，这个时候，蓝线的切线方向都指向橙线的等高线方向。换句话说，在切点的位置沿蓝线移动很小的一步，都相当于在橙线的等高线上移动，这个时候，可以认为函数值已经趋于稳定了。所以，我们认为这个点的值“可能”是最低（高）的（之后解释为什么是“可能“。另外，个人觉得拉格朗日乘子法最好用反证法从不相切的点入手思考，从相切的点思考总有点别扭）。</p>
+<p>既然相切可以帮助我们找到最低点，那么接下来我们要研究的便是如何利用相切来找出最低点。</p>
+<p>相切，意味着在切点的位置，两条曲线的等高线方向是平行的，考虑到梯度与等高线垂直， 我们可以用两条曲线的梯度平行来求出切点位置（最低点）。</p>
+<p>因此，根据梯度平行，我们能够得到一个方程组：，其中 表示一个标量，因为我们虽然能保证两个梯度平行，但不能保证它们的长度一样（或者方向相同）。在高维函数中， 表示的是函数在各个自变量方向的偏导。对于上面的例子，我们可以求出函数 和 的偏导，再根据方程组：</p>
+<p>求出切点。由于总共有三个方程和三个未知数，一般都能找到解（也可能存在多个解或无解的情况，之后会简单讨论）。</p>
+<p>在实际求解时，人们会使用一个统一的拉格朗日函数：，令这个函数偏导为 0，我们可以得到：</p>
+<p>结果和上面的方程组是一样的。</p>
+<h3 id="多个约束条件"><a href="#多个约束条件" class="headerlink" title="多个约束条件"></a>多个约束条件</h3><p>多个约束条件和单个约束条件是一样的。如果是多个约束条件，那么这些约束函数肯定是相交的，否则无解。多个约束条件一般会把变量约束到一个更低维的空间，例如，下图中，紫色球面和黄色平面将变量约束到黑色线的位置。</p>
+<p>​                                <a href="http://jermmy.xyz/images/2017-7-27/LagrangeConstraints.jpg" target="_blank" rel="noopener"><img src="http://jermmy.xyz/images/2017-7-27/LagrangeConstraints.jpg" alt="img"></a></p>
+<p>求解过程和单个约束条件是一样的，我们定义一个新的拉格朗日函数：</p>
+<p>然后同样令这个函数的导数 </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>根据拉格朗日乘子法的定义，这是一种寻找极值的策略，换句话说，该方法并不能保证找到的一定是最低点或者最高点。事实上，它只是一种寻找极值点的过程，而且，拉格朗日乘子法找到的切点可能不只一个（也就是上面的方程组可能找到多个解），例如下图：</p>
+<p>​                                <a href="http://jermmy.xyz/images/2017-7-27/multiple-solution.jpg" target="_blank" rel="noopener"><img src="http://jermmy.xyz/images/2017-7-27/multiple-solution.jpg" alt="img"></a></p>
+<p>图中相切的点有两个，而红点的函数值明显比黑点小。事实上，要想判断找到的点是极低点还是极高点，我们需要将切点代入原函数再进行判断。</p>
+<p>另外，在写作本文时，我仍然有一个疑惑没有解决：拉格朗日乘子法在哪些情况下无解（也就是上面的方程组 无解）？换句话说，约束条件和函数没有切点时，我们要怎么求出最低点或最高点。这个问题留待之后想通再补上。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/29/FastAI%E7%AC%94%E8%AE%B0-%E4%B8%80/" rel="next" title="FastAI笔记(一)">
+                <i class="fa fa-chevron-left"></i> FastAI笔记(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/13/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0%E7%8E%87%E7%AE%97%E6%B3%95-Adam%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" rel="prev" title="深度学习学习率算法:Adam优化算法">
+                深度学习学习率算法:Adam优化算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/08/28/拉格朗日乘子法/"
+           data-title="拉格朗日乘子法" data-url="http://yoursite.com/2019/08/28/%E6%8B%89%E6%A0%BC%E6%9C%97%E6%97%A5%E4%B9%98%E5%AD%90%E6%B3%95/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Adler</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是拉格朗日乘子法"><span class="nav-number">1.</span> <span class="nav-text">什么是拉格朗日乘子法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉格朗日乘子法的原理"><span class="nav-number">2.</span> <span class="nav-text">拉格朗日乘子法的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个约束条件"><span class="nav-number">2.1.</span> <span class="nav-text">一个约束条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度"><span class="nav-number">2.2.</span> <span class="nav-text">梯度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法的几何认识"><span class="nav-number">2.3.</span> <span class="nav-text">拉格朗日乘子法的几何认识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个约束条件"><span class="nav-number">2.4.</span> <span class="nav-text">多个约束条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adler</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/pokemon.svg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/pokemon.svg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="原文链接： http:&#x2F;&#x2F;mlnote.wordpress.com&#x2F;2015&#x2F;12&#x2F;16&#x2F;python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E8%B7%B5%E4%B8%8Ekaggle%E5%AE%9E%E6%88%98-machine-learning-for-kaggle-competition-in-python&#x2F;   声明： ​">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「转」kaggle打榜经验">
+<meta property="og:url" content="http://yoursite.com/2019/11/15/%E3%80%8C%E8%BD%AC%E3%80%8Dkaggle%E6%89%93%E6%A6%9C%E7%BB%8F%E9%AA%8C/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="原文链接： http:&#x2F;&#x2F;mlnote.wordpress.com&#x2F;2015&#x2F;12&#x2F;16&#x2F;python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E8%B7%B5%E4%B8%8Ekaggle%E5%AE%9E%E6%88%98-machine-learning-for-kaggle-competition-in-python&#x2F;   声明： ​">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="https://www.evernote.com/shard/s622/res/9c54e86f-4aaa-4ff9-8d49-c341e34f40ee/figure_1.png">
+<meta property="og:image" content="https://mlnote.files.wordpress.com/2015/12/unnamed-qq-screenshot20151216172815.png?w=702">
+<meta property="og:image" content="https://www.evernote.com/shard/s622/res/4d27dbd5-f721-4323-8f9a-c5a7b183aee2/figure_1.png">
+<meta property="article:published_time" content="2019-11-15T02:08:52.000Z">
+<meta property="article:modified_time" content="2020-03-23T15:24:42.565Z">
+<meta property="article:author" content="Adler">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.evernote.com/shard/s622/res/9c54e86f-4aaa-4ff9-8d49-c341e34f40ee/figure_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/15/「转」kaggle打榜经验/"/>
+
+
+
+
+
+  <title>「转」kaggle打榜经验 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/index.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/%E3%80%8C%E8%BD%AC%E3%80%8Dkaggle%E6%89%93%E6%A6%9C%E7%BB%8F%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Adler">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">「转」kaggle打榜经验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-15T10:08:52+08:00">
+                2019-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index">
+                    <span itemprop="name">竞赛</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/15/%E3%80%8C%E8%BD%AC%E3%80%8Dkaggle%E6%89%93%E6%A6%9C%E7%BB%8F%E9%AA%8C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/11/15/「转」kaggle打榜经验/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote><p>原文链接： <a href="http://mlnote.wordpress.com/2015/12/16/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E8%B7%B5%E4%B8%8Ekaggle%E5%AE%9E%E6%88%98-machine-learning-for-kaggle-competition-in-python/" target="_blank" rel="noopener">http://mlnote.wordpress.com/2015/12/16/python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E8%B7%B5%E4%B8%8Ekaggle%E5%AE%9E%E6%88%98-machine-learning-for-kaggle-competition-in-python/</a></p>
+</blockquote>
+
+<p><strong>声明：</strong></p>
+<p>​    <strong>下面这些内容，都是学习《<a href="http://www.amazon.com/Learning-scikit-learn-Machine-Python/dp/1783281936" target="_blank" rel="noopener">Learning scikit-learn: Machine Learning in Python</a>》这本书的心得和一些拓展，写到哪算哪。Scikit-learn这个包我关注了2年，发展迅速；特别是它提供商业使用许可，比较有前景。</strong></p>
+<p>​    <strong>对于机器学习实践的“选手”，这是本入门的好书，国内目前没有中文译文版，我就先吃吃螃蟹。我个人认为，如果能够比较熟练掌握 Scikit-learn中的各种现有成熟模型的使用以及超参数优化（其实对超参数优化在工程中更加重要），那么<a href="http://www.kaggle.com/" target="_blank" rel="noopener">Kaggle</a>多数的竞赛大家基本可以进入Top25%。</strong></p>
+<p>​    <strong>这份长篇笔记中的代码链接目前都在本地，不久我会上传到GITHUB上。</strong></p>
+<p>​    <strong>平心而论，只有使用这些模型的经验丰富了，才能在实战中发挥作用，特别是对超参数和模型本身局限性的理解，恐怕不是书本所能教会的。</strong></p>
+<p>​    <strong>另外，更是有一些可以尝试的，并且曾经在Kaggle竞赛中多次获奖的模型包，比如 Xgboost, gensim等。Tensorflow究竟是否能够取得Kaggle竞赛的奖金，我还需要时间尝试。</strong></p>
+<p>​    <strong>同时，我个人近期也参与了《<a href="https://goodfeli.github.io/dlbook/contents/acknowledgements.html" target="_blank" rel="noopener">Deep Learning</a>》这本优质新书多个章节贡献和校对，与三位作者平时的交流也深受启发。如果有兴趣的同学可以邮件本人，并一起参与中文笔记的撰文。</strong></p>
+<p>​ </p>
+<a id="more"></a>
+
+
+<p><strong>平台选取：我个人推荐这个综合平台Anaconda进行练习<a href="https://www.continuum.io/downloads" target="_blank" rel="noopener">https://www.continuum.io/downloads</a></strong></p>
+<p><strong>，同时新加入的其他包也可以在这个平台上拓展，几乎常用的操作系统都可以安装，一次性解决复杂的配置问题。</strong></p>
+<p><strong>回国之后，对于我这个从来没摸过苹果电脑和系统的菜鸟，再添置一个<a href="http://www.apple.com/cn-k12/shop/buy-mac/imac?product=MK482CH/A&step=config#" target="_blank" rel="noopener">IMAC 27”</a>犒劳一下自己:) （题外话）。</strong></p>
+<p><strong>因为后面的代码都是在Ipython环境下的，因此有一些地方没有print这个函数帮助输出，请读者留意。In[*]/Out[*]这种标记也是Ipython特有的。</strong></p>
+<p><strong>这份笔记围绕Python下的机器学习实践一共探讨四个方面的内容：监督学习、无监督学习、特征和模型的选取 和 几个流行的强力模型包的使用。</strong></p>
+<p><strong>我特别喜欢用几句话对某些东西做个总结，对于Kaggle的任务，我个人觉得大体需要这么几个固定的机器学习流程（不包括决定性的分析），如果按照这个流程，采用scikit-learn &amp; pandas包的话，普遍都会进Top25%:</strong></p>
+<p><strong>1) pandas 读 csv或者tsv (Kaggle上的数据基本都比较整洁)</strong></p>
+<p><strong>2) 特征少的话，补全数据，feature_extraction (DictVec, tfidfVec等等，根据数据类型而异，文本，图像，音频，这些处理方式都不同), feature_selection, grid_searching the best hyperparameters(model_selection), ensemble learning （或者综合好多学习器的结果）, predict 或者 proba_predict （取决于任务的提交要求，是直接分类结果，还是分类概率，这个区别很大）。</strong></p>
+<p><strong>3) 特征多的话，补全数据，feature_extraction (DictVec, tfidfVec等等，根据数据类型而异，文本，图像，音频，这些处理方式都不同), 数据降维度（PCA，RBM等等），feature_selection (如果降维度之后还有必要), ensemble learning （或者综合好多学习器的结果）, predict 或者 proba_predict （取决于任务的提交要求，是直接分类结果，还是分类概率，这个区别很大）。</strong></p>
+<p><strong>1. 监督学习</strong></p>
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong><del>~</del></strong></p>
+<p><strong>1.1 线性分类器</strong></p>
+<p>  <strong>使用Scikit-learn数据库中预装的牵牛花品种数据，进行线性分类实践。线性分类器中，Logistic Regression比较常用，适合做概率估计，即对分配给每个类别一个估计概率。这个在Kaggle竞赛里经常需要。 <a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/linear_classifier.ipynb" target="_blank" rel="noopener">【Source Code】</a><a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/linear_classifier.ipynb" target="_blank" rel="noopener"> </a></strong></p>
+<p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import load_iris</span><br><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line">from sklearn import preprocessing</span><br><span class="line"></span><br><span class="line"># 读取数据</span><br><span class="line">iris &#x3D; load_iris()</span><br><span class="line"></span><br><span class="line"># 选取特征与标签</span><br><span class="line">X_iris, y_iris &#x3D; iris.data, iris.target</span><br><span class="line"></span><br><span class="line"># 选择前两列数据作为特征</span><br><span class="line">X, y &#x3D; X_iris[:, :2], y_iris</span><br><span class="line"></span><br><span class="line"># 选取一部分，25%的训练数据作为测试集</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(X, y, test_size&#x3D;0.25, random_state &#x3D; 33)</span><br><span class="line"></span><br><span class="line"># 对原特征数据进行标准化预处理，这个其实挺重要，但是经常被一些选手忽略</span><br><span class="line">scaler &#x3D; preprocessing.StandardScaler()</span><br><span class="line">X_train &#x3D; scaler.fit_transform(X_train)</span><br><span class="line">X_test &#x3D; scaler.transform(X_test)</span><br><span class="line"></span><br><span class="line">from sklearn.linear_model import SGDClassifier</span><br><span class="line"></span><br><span class="line"># 选择使用SGD分类器，适合大规模数据，随机梯度下降方法估计参数</span><br><span class="line">clf &#x3D; SGDClassifier()</span><br><span class="line"></span><br><span class="line">clf.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"># 导入评价包</span><br><span class="line">from sklearn import metrics</span><br><span class="line"></span><br><span class="line">y_train_predict &#x3D; clf.predict(X_train)</span><br><span class="line"></span><br><span class="line"># 内测，使用训练样本进行准确性能评估</span><br><span class="line">print metrics.accuracy_score(y_train, y_train_predict)</span><br><span class="line"></span><br><span class="line"># 标准外测，使用测试样本进行准确性能评估</span><br><span class="line">y_predict &#x3D; clf.predict(X_test)</span><br><span class="line">print metrics.accuracy_score(y_test, y_predict)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0.660714285714</span><br><span class="line">0.684210526316</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 如果需要更加详细的性能报告，比如precision, recall, accuracy，可以使用如下的函数。</span><br><span class="line">print metrics.classification_report(y_test, y_predict, target_names &#x3D; iris.target_names)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">             precision    recall  f1-score   support</span><br><span class="line"></span><br><span class="line">     setosa       1.00      1.00      1.00         8</span><br><span class="line"> versicolor       0.43      0.27      0.33        11</span><br><span class="line">  virginica       0.65      0.79      0.71        19</span><br><span class="line"></span><br><span class="line">avg &#x2F; total       0.66      0.68      0.66        38</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 如果想详细探查SGDClassifier的分类性能，我们需要充分利用数据，因此需要把数据切分为N个部分，每个部分都用于测试一次模型性能。</span><br><span class="line"></span><br><span class="line">from sklearn.cross_validation import cross_val_score, KFold</span><br><span class="line">from sklearn.pipeline import Pipeline </span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line"># 这里使用Pipeline，便于精简模型搭建，一般而言，模型在fit之前，对数据需要feature_extraction, preprocessing, 等必要步骤。</span><br><span class="line"># 这里我们使用默认的参数配置</span><br><span class="line">clf &#x3D; Pipeline([(&#39;scaler&#39;, StandardScaler()), (&#39;sgd_classifier&#39;, SGDClassifier())])</span><br><span class="line"></span><br><span class="line"># 5折交叉验证整个数据集合</span><br><span class="line">cv &#x3D; KFold(X.shape[0], 5, shuffle&#x3D;True, random_state &#x3D; 33)</span><br><span class="line"></span><br><span class="line">scores &#x3D; cross_val_score(clf, X, y, cv&#x3D;cv)</span><br><span class="line">print scores</span><br><span class="line"></span><br><span class="line"># 计算一下模型综合性能，平均精度和标准差</span><br><span class="line">print scores.mean(), scores.std()</span><br><span class="line"></span><br><span class="line">from scipy.stats import sem</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># 这里使用的偏差计算函数略有不同，参考链接</span><br><span class="line">http:&#x2F;&#x2F;www.graphpad.com&#x2F;guides&#x2F;prism&#x2F;6&#x2F;statistics&#x2F;index.htm?stat_semandsdnotsame.htm</span><br><span class="line">print np.mean(scores), sem(scores)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ 0.56666667  0.73333333  0.83333333  0.76666667  0.8       ]</span><br><span class="line">0.74 0.0928559218479</span><br><span class="line">0.74 0.0464279609239</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>总结一下：线性分类器有几种， Logistic_regression在scikit-learn里也有实现。比起SGD这个分类器而言，前者使用更加精确，但是更加耗时的解析解。SGD分类器可以大体代表这些线性分类器的性能，但是由于是近似估计的参数，因此模型性能结果不是很稳定，需要通过调节超参数获得模型的性能上限。</strong></p>
+<p><strong><del>~</del></strong></p>
+<p><strong>1.2 SVM 分类器</strong></p>
+<p>*<em>这一部分，我们探究支持向量机，这是个强分类器，性能要比普通线性分类器强大一些，一般而言，基于的也是线性假设。但是由于可以引入一些核技巧(kernel trick)，可以将特征映射到更加高维度，甚至非线性的空间上，从而使数据空间变得更加可分。再加上SVM本身只是会选取少量的支持向量作为确定分类器超平面的证据，因此，即便数据变得高维度，非线性映射，也不会占用太多的内存空间，只是计算这些支持向量的CPU代价比较高。另外，这个分类器适合于直接做分类，不适合做分类概率的估计。 <a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/SVM_classifier.ipynb" target="_blank" rel="noopener">【Source Code】</a><a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/linear_classifier.ipynb" target="_blank" rel="noopener"> </a><br>*</em></p>
+<p><strong>这里我们使用 AT&amp;T 400张人脸，这个经典数据集来介绍:</strong></p>
+<p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import fetch_olivetti_faces</span><br><span class="line"></span><br><span class="line"># 这部分数据没有直接存储在现有包中，都是通过这类函数在线下载</span><br><span class="line">faces &#x3D; fetch_olivetti_faces()</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 这里证明，数据是以Dict的形式存储的，与多数实验性数据的格式一致</span><br><span class="line">faces.keys()</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#39;images&#39;, &#39;data&#39;, &#39;target&#39;, &#39;DESCR&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 使用shape属性检验数据规模</span><br><span class="line">print faces.data.shape</span><br><span class="line">print faces.target.shape</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(400L, 4096L)</span><br><span class="line">(400L,)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line">from sklearn.svm import SVC</span><br><span class="line"></span><br><span class="line"># 同样是分割数据 25%用于测试</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(faces.data, faces.target, test_size&#x3D;0.25, random_state&#x3D;0)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [5]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cross_validation import cross_val_score, KFold</span><br><span class="line">from scipy.stats import sem</span><br><span class="line"></span><br><span class="line"># 构造一个便于交叉验证模型性能的函数（模块）</span><br><span class="line">def evaluate_cross_validation(clf, X, y, K):</span><br><span class="line">    # KFold 函数需要如下参数：数据量, 叉验次数, 是否洗牌</span><br><span class="line">    cv &#x3D; KFold(len(y), K, shuffle&#x3D;True, random_state &#x3D; 0)</span><br><span class="line">    # 采用上述的分隔方式进行交叉验证，测试模型性能，对于分类问题，这些得分默认是accuracy，也可以修改为别的</span><br><span class="line">    scores &#x3D; cross_val_score(clf, X, y, cv&#x3D;cv)</span><br><span class="line">    print scores</span><br><span class="line">    print &#39;Mean score: %.3f (+&#x2F;-%.3f)&#39; % (scores.mean(), sem(scores))</span><br><span class="line">    </span><br><span class="line"># 使用线性核的SVC （后面会说到不同的核，结果可能大不相同）</span><br><span class="line">svc_linear &#x3D; SVC(kernel&#x3D;&#39;linear&#39;)</span><br><span class="line"># 五折交叉验证 K &#x3D; 5</span><br><span class="line">evaluate_cross_validation(svc_linear, X_train, y_train, 5)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ 0.93333333  0.86666667  0.91666667  0.93333333  0.91666667]</span><br><span class="line">Mean score: 0.913 (+&#x2F;-0.012)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong>1.3 朴素贝叶斯分类器（Naive Bayes)</strong></p>
+<p><strong>这一部分我们探讨朴素贝叶斯分类器，大量实验证明，这个分类模型在对文本分类中能表现良好。究其原因，也许是对于邮件过滤这类任务，我们用于区分类别的文本特征彼此独立性较强，刚好模型的假设便是特征独立。 <a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/NB_classifier.ipynb" target="_blank" rel="noopener">【Source Code】</a><a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/linear_classifier.ipynb" target="_blank" rel="noopener"> </a></strong></p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import fetch_20newsgroups</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 与之前的人脸数据集一样，20类新闻数据同样需要临时下载函数的帮忙</span><br><span class="line">news &#x3D; fetch_20newsgroups(subset&#x3D;&#39;all&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [9]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查验数据，依然采用dict格式，共有18846条样本</span><br><span class="line">print len(news.data), len(news.target)</span><br><span class="line">print news.target</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">18846 18846</span><br><span class="line">[10  3 17 ...,  3  1  7]</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查验一下新闻类别和种数</span><br><span class="line">print news.target_names</span><br><span class="line">print news.target_names.__len__()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&#39;alt.atheism&#39;, &#39;comp.graphics&#39;, &#39;comp.os.ms-windows.misc&#39;, &#39;comp.sys.ibm.pc.hardware&#39;, &#39;comp.sys.mac.hardware&#39;, &#39;comp.windows.x&#39;, &#39;misc.forsale&#39;, &#39;rec.autos&#39;, &#39;rec.motorcycles&#39;, &#39;rec.sport.baseball&#39;, &#39;rec.sport.hockey&#39;, &#39;sci.crypt&#39;, &#39;sci.electronics&#39;, &#39;sci.med&#39;, &#39;sci.space&#39;, &#39;soc.religion.christian&#39;, &#39;talk.politics.guns&#39;, &#39;talk.politics.mideast&#39;, &#39;talk.politics.misc&#39;, &#39;talk.religion.misc&#39;]</span><br><span class="line">20</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [5]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 同样，我们选取25%的数据用来测试模型性能</span><br><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(news.data, news.target, test_size&#x3D;0.25)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [6]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print X_train.__len__()</span><br><span class="line">print y_train.__len__()</span><br><span class="line">print X_test.__len__()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">14134</span><br><span class="line">14134</span><br><span class="line">4712</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [13]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 许多原始数据无法直接被分类器所使用，图像可以直接使用pixel信息，文本则需要进一步处理成数值化的信息</span><br><span class="line">from sklearn.feature_extraction.text import CountVectorizer, HashingVectorizer, TfidfVectorizer</span><br><span class="line">from sklearn.naive_bayes import MultinomialNB</span><br><span class="line">from sklearn.pipeline import Pipeline</span><br><span class="line">from sklearn.cross_validation import *</span><br><span class="line">from scipy.stats import sem</span><br><span class="line"># 我们在NB_Classifier的基础上，对比几种特征抽取方法的性能。并且使用Pipline简化构建训练流程</span><br><span class="line">clf_1 &#x3D; Pipeline([(&#39;count_vec&#39;, CountVectorizer()), (&#39;mnb&#39;, MultinomialNB())])</span><br><span class="line">clf_2 &#x3D; Pipeline([(&#39;hash_vec&#39;, HashingVectorizer(non_negative&#x3D;True)), (&#39;mnb&#39;, MultinomialNB())])</span><br><span class="line">clf_3 &#x3D; Pipeline([(&#39;tfidf_vec&#39;, TfidfVectorizer()), (&#39;mnb&#39;, MultinomialNB())])</span><br><span class="line"></span><br><span class="line"># 构造一个便于交叉验证模型性能的函数（模块）</span><br><span class="line">def evaluate_cross_validation(clf, X, y, K):</span><br><span class="line">    # KFold 函数需要如下参数，数据量, K,是否洗牌</span><br><span class="line">    cv &#x3D; KFold(len(y), K, shuffle&#x3D;True, random_state &#x3D; 0)</span><br><span class="line">    # 采用上述的分隔方式进行交叉验证，测试模型性能，对于分类问题，这些得分默认是accuracy，也可以修改为别的</span><br><span class="line">    scores &#x3D; cross_val_score(clf, X, y, cv&#x3D;cv)</span><br><span class="line">    print scores</span><br><span class="line">    print &#39;Mean score: %.3f (+&#x2F;-%.3f)&#39; % (scores.mean(), sem(scores))</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [14]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">clfs &#x3D; [clf_1, clf_2, clf_3]</span><br><span class="line">for clf in clfs:</span><br><span class="line">    evaluate_cross_validation(clf, X_train, y_train, 5)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ 0.83516095  0.83374602  0.84471171  0.83622214  0.83227176]</span><br><span class="line">Mean score: 0.836 (+&#x2F;-0.002)</span><br><span class="line">[ 0.76052352  0.72727273  0.77538026  0.74778918  0.75194621]</span><br><span class="line">Mean score: 0.753 (+&#x2F;-0.008)</span><br><span class="line">[ 0.84435798  0.83409975  0.85496993  0.84082066  0.83227176]</span><br><span class="line">Mean score: 0.841 (+&#x2F;-0.004)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [15]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 从上述结果中，我们发现常用的两个特征提取方法得到的性能相当。 让我们选取其中之一，进一步靠特征的精细筛选提升性能。</span><br><span class="line">clf_4 &#x3D; Pipeline([(&#39;tfidf_vec_adv&#39;, TfidfVectorizer(stop_words&#x3D;&#39;english&#39;)), (&#39;mnb&#39;, MultinomialNB())])</span><br><span class="line">evaluate_cross_validation(clf_4, X_train, y_train, 5)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ 0.87053414  0.86664308  0.887867    0.87371772  0.86553432]</span><br><span class="line">Mean score: 0.873 (+&#x2F;-0.004)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [16]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 如果再尝试修改贝叶斯分类器的平滑参数，也许性能会更上一层楼。</span><br><span class="line">clf_5 &#x3D; Pipeline([(&#39;tfidf_vec_adv&#39;, TfidfVectorizer(stop_words&#x3D;&#39;english&#39;)), (&#39;mnb&#39;, MultinomialNB(alpha&#x3D;0.01))])</span><br><span class="line">evaluate_cross_validation(clf_5, X_train, y_train, 5)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ 0.90060134  0.89741776  0.91651928  0.90909091  0.90410474]</span><br><span class="line">Mean score: 0.906 (+&#x2F;-0.003)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong><del>~</del></strong></p>
+<p><strong>1.4 决策树分类器（Decision Tree) / 集成分类器（Ensemble Tree）</strong></p>
+<p><strong>之前的分类器大多有一下几点缺陷：</strong></p>
+<p>*<em>a)线性分类器对于特征与类别直接的关系是“线性假设”，如果遇到非线性的关系，就很难辨识，比如Titanic数据中，如果假设“年龄”与“生存”是正相关的，那么年龄越大，越有可能生存；但是事实证明，这个假设是错误的，不是正相关，而偏偏是老人与小孩更加容易获得生存的机会。这种情况，线性假设不完全成立，因此，需要非线性的分类器。<br>*</em></p>
+<p>*<em>b)即便使用类似SVM的分类器，我们很难得到明确分类“依据”的说明，无法“解释”分类器是如何工作的，特别无法从人类逻辑的角度理解。高维度、不可解释性等，这些都是弊端。<br>*</em></p>
+<p>*<em>决策树分类器解决了上述两点问题。我们使用Titanic（泰坦尼克号的救援记录）这个数据集来实践一个预测某乘客是否获救的分类器。 <a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/DecisionTree_classifier.ipynb" target="_blank" rel="noopener">【Source Code】</a><a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/linear_classifier.ipynb" target="_blank" rel="noopener"> </a><br>*</em></p>
+<h5 id="-1"><a href="#-1" class="headerlink" title=""></a></h5><p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这里为了处理数据方便，我们引入一个新的工具包pandas</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">titanic &#x3D; pd.read_csv(&#39;http:&#x2F;&#x2F;biostat.mc.vanderbilt.edu&#x2F;wiki&#x2F;pub&#x2F;Main&#x2F;DataSets&#x2F;titanic.txt&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#瞧瞧数据，什么数据特征的都有，有数值型的、类别型的，字符串，甚至还有缺失的数据等等。</span><br><span class="line">titanic.head()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 使用pandas，数据都转入pandas独有的dataframe格式（二维数据表格），直接使用info()，查看数据的基本特征</span><br><span class="line">titanic.info()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span><br><span class="line">Int64Index: 1313 entries, 0 to 1312</span><br><span class="line">Data columns (total 11 columns):</span><br><span class="line">row.names    1313 non-null int64</span><br><span class="line">pclass       1313 non-null object</span><br><span class="line">survived     1313 non-null int64</span><br><span class="line">name         1313 non-null object</span><br><span class="line">age          633 non-null float64</span><br><span class="line">embarked     821 non-null object</span><br><span class="line">home.dest    754 non-null object</span><br><span class="line">room         77 non-null object</span><br><span class="line">ticket       69 non-null object</span><br><span class="line">boat         347 non-null object</span><br><span class="line">sex          1313 non-null object</span><br><span class="line">dtypes: float64(1), int64(2), object(8)</span><br><span class="line">memory usage: 123.1+ KB</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 这份调查数据是真实的泰坦尼克号乘客个人和登船信息，有助于我们预测每位遇难乘客是否幸免。</span><br><span class="line"># 一共1313条数据，有些特征是完整的（比如 pclass, survived, name），有些是有缺失的；有些是数值类型的信息（age: float64），有些则是字符串。</span><br><span class="line"># 机器学习有一个不太被初学者重视，并且耗时，但是十分重要的一环，特征的选择，这个需要基于一些背景知识。根据我们对这场事故的了解，sex, age, pclass这些都很有可能是决定幸免与否的关键因素。</span><br><span class="line"></span><br><span class="line"># we keep pclass, age, sex.</span><br><span class="line"></span><br><span class="line">X &#x3D; titanic[[&#39;pclass&#39;, &#39;age&#39;, &#39;sex&#39;]]</span><br><span class="line">y &#x3D; titanic[&#39;survived&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [5]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X.info()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span><br><span class="line">Int64Index: 1313 entries, 0 to 1312</span><br><span class="line">Data columns (total 3 columns):</span><br><span class="line">pclass    1313 non-null object</span><br><span class="line">age       633 non-null float64</span><br><span class="line">sex       1313 non-null object</span><br><span class="line">dtypes: float64(1), object(2)</span><br><span class="line">memory usage: 41.0+ KB</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [6]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 下面有几个对数据处理的任务</span><br><span class="line"># 1) age这个数据列，只有633个</span><br><span class="line"># 2) sex 与 pclass两个数据列的值都是类别型的，需要转化为数值特征，用0&#x2F;1代替</span><br><span class="line"></span><br><span class="line"># 首先我们补充age里的数据，使用平均数或者中位数都是对模型偏离造成最小影响的策略</span><br><span class="line">X[&#39;age&#39;].fillna(X[&#39;age&#39;].mean(), inplace&#x3D;True)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Anaconda2\lib\site-packages\pandas\core\generic.py:2748: SettingWithCopyWarning: </span><br><span class="line">A value is trying to be set on a copy of a slice from a DataFrame</span><br><span class="line"></span><br><span class="line">See the caveats in the documentation: http:&#x2F;&#x2F;pandas.pydata.org&#x2F;pandas-docs&#x2F;stable&#x2F;indexing.html#indexing-view-versus-copy</span><br><span class="line">  self._update_inplace(new_data)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [7]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X.info()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span><br><span class="line">Int64Index: 1313 entries, 0 to 1312</span><br><span class="line">Data columns (total 3 columns):</span><br><span class="line">pclass    1313 non-null object</span><br><span class="line">age       1313 non-null float64</span><br><span class="line">sex       1313 non-null object</span><br><span class="line">dtypes: float64(1), object(2)</span><br><span class="line">memory usage: 41.0+ KB</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [8]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(X, y, test_size&#x3D;0.25, random_state &#x3D; 33)</span><br><span class="line"></span><br><span class="line"># 我们使用scikit-learn中的feature_extraction</span><br><span class="line">from sklearn.feature_extraction import DictVectorizer</span><br><span class="line">vec &#x3D; DictVectorizer(sparse&#x3D;False)</span><br><span class="line">X_train &#x3D; vec.fit_transform(X_train.to_dict(orient&#x3D;&#39;record&#39;))</span><br><span class="line">print vec.feature_names_</span><br><span class="line"># 我们发现，凡是类别型的特征都单独剥离出来，独成一列特征，数值型的则保持不变</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#39;age&#39;, &#39;pclass&#x3D;1st&#39;, &#39;pclass&#x3D;2nd&#39;, &#39;pclass&#x3D;3rd&#39;, &#39;sex&#x3D;female&#39;, &#39;sex&#x3D;male&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [9]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X_test &#x3D; vec.transform(X_test.to_dict(orient&#x3D;&#39;record&#39;))</span><br><span class="line">from sklearn.tree import DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">dtc &#x3D; DecisionTreeClassifier(criterion&#x3D;&#39;entropy&#39;, max_depth&#x3D;3, min_samples_leaf&#x3D;5)</span><br><span class="line">dtc.fit(X_train, y_train)</span><br><span class="line">dtc.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[9]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.79331306990881456</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [10]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.ensemble import RandomForestClassifier</span><br><span class="line"></span><br><span class="line">rfc &#x3D; RandomForestClassifier(max_depth&#x3D;3, min_samples_leaf&#x3D;5)</span><br><span class="line">rfc.fit(X_train, y_train)</span><br><span class="line">rfc.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[10]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.77203647416413379</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [11]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.ensemble import GradientBoostingClassifier</span><br><span class="line"></span><br><span class="line">gbc &#x3D; GradientBoostingClassifier(max_depth&#x3D;3, min_samples_leaf&#x3D;5)</span><br><span class="line"></span><br><span class="line">gbc.fit(X_train, y_train)</span><br><span class="line">gbc.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[11]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.79027355623100304</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [13]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.metrics import classification_report</span><br><span class="line"></span><br><span class="line">y_predict &#x3D; gbc.predict(X_test)</span><br><span class="line">print classification_report(y_predict, y_test)</span><br><span class="line"># 这里的函数可以便于生成分类器性能报告（precision,recall)这些是在二分类背景下才有的指标。</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">             precision    recall  f1-score   support</span><br><span class="line"></span><br><span class="line">          0       0.93      0.78      0.84       241</span><br><span class="line">          1       0.57      0.83      0.68        88</span><br><span class="line"></span><br><span class="line">avg &#x2F; total       0.83      0.79      0.80       329</span><br></pre></td></tr></table></figure>
+
+<p><strong><del>~</del></strong></p>
+<p><strong>1.5 回归问题（Regressions）</strong></p>
+<p><strong>回归问题和分类问题都同属于监督学习范畴，唯一不同的是，回归问题的预测目标是在无限的连续实数域，比如预测房价、股票价格等等；分类问题则是对有限范围的几个类别（离散数）进行预测。当然两者的界限不一定泾渭分明，也可以适度转化。比如，有一个经典的对红酒质量的预测，大体分为10等级，怎样看待这个预测目标，都是可以的。预测的结果，可以在（0-10]区间连续（回归问题），也可以只预测10个等级的某个值（分类问题）。</strong></p>
+<p>*<em>这里我们举一个预测美国波士顿地区房价的问题，这是个经典的回归问题，我们一步步采用各种用于回归问题的训练模型，一步步尝试提升模型的回归性能。<a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/Regressors.ipynb" target="_blank" rel="noopener">【Source Code】</a><br>*</em></p>
+<h5 id="-2"><a href="#-2" class="headerlink" title=""></a></h5><p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 首先预读房价数据</span><br><span class="line">from sklearn.datasets import load_boston</span><br><span class="line"></span><br><span class="line">boston &#x3D; load_boston()</span><br><span class="line"></span><br><span class="line"># 查验数据规模</span><br><span class="line">print boston.data.shape</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(506L, 13L)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 多多弄懂数据特征的含义也是一个好习惯</span><br><span class="line">print boston.feature_names</span><br><span class="line">print boston.DESCR</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">[&#39;CRIM&#39; &#39;ZN&#39; &#39;INDUS&#39; &#39;CHAS&#39; &#39;NOX&#39; &#39;RM&#39; &#39;AGE&#39; &#39;DIS&#39; &#39;RAD&#39; &#39;TAX&#39; &#39;PTRATIO&#39;</span><br><span class="line"> &#39;B&#39; &#39;LSTAT&#39;]</span><br><span class="line">Boston House Prices dataset</span><br><span class="line"></span><br><span class="line">Notes</span><br><span class="line">------</span><br><span class="line">Data Set Characteristics:  </span><br><span class="line"></span><br><span class="line">    :Number of Instances: 506 </span><br><span class="line"></span><br><span class="line">    :Number of Attributes: 13 numeric&#x2F;categorical predictive</span><br><span class="line">    </span><br><span class="line">    :Median Value (attribute 14) is usually the target</span><br><span class="line"></span><br><span class="line">    :Attribute Information (in order):</span><br><span class="line">        - CRIM     per capita crime rate by town</span><br><span class="line">        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.</span><br><span class="line">        - INDUS    proportion of non-retail business acres per town</span><br><span class="line">        - CHAS     Charles River dummy variable (&#x3D; 1 if tract bounds river; 0 otherwise)</span><br><span class="line">        - NOX      nitric oxides concentration (parts per 10 million)</span><br><span class="line">        - RM       average number of rooms per dwelling</span><br><span class="line">        - AGE      proportion of owner-occupied units built prior to 1940</span><br><span class="line">        - DIS      weighted distances to five Boston employment centres</span><br><span class="line">        - RAD      index of accessibility to radial highways</span><br><span class="line">        - TAX      full-value property-tax rate per $10,000</span><br><span class="line">        - PTRATIO  pupil-teacher ratio by town</span><br><span class="line">        - B        1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town</span><br><span class="line">        - LSTAT    % lower status of the population</span><br><span class="line">        - MEDV     Median value of owner-occupied homes in $1000&#39;s</span><br><span class="line"></span><br><span class="line">    :Missing Attribute Values: None</span><br><span class="line"></span><br><span class="line">    :Creator: Harrison, D. and Rubinfeld, D.L.</span><br><span class="line"></span><br><span class="line">This is a copy of UCI ML housing dataset.</span><br><span class="line">http:&#x2F;&#x2F;archive.ics.uci.edu&#x2F;ml&#x2F;datasets&#x2F;Housing</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University.</span><br><span class="line"></span><br><span class="line">The Boston house-price data of Harrison, D. and Rubinfeld, D.L. &#39;Hedonic</span><br><span class="line">prices and the demand for clean air&#39;, J. Environ. Economics &amp; Management,</span><br><span class="line">vol.5, 81-102, 1978.   Used in Belsley, Kuh &amp; Welsch, &#39;Regression diagnostics</span><br><span class="line">...&#39;, Wiley, 1980.   N.B. Various transformations are used in the table on</span><br><span class="line">pages 244-261 of the latter.</span><br><span class="line"></span><br><span class="line">The Boston house-price data has been used in many machine learning papers that address regression</span><br><span class="line">problems.   </span><br><span class="line">     </span><br><span class="line">**References**</span><br><span class="line"></span><br><span class="line">   - Belsley, Kuh &amp; Welsch, &#39;Regression diagnostics: Identifying Influential Data and Sources of Collinearity&#39;, Wiley, 1980. 244-261.</span><br><span class="line">   - Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.</span><br><span class="line">   - many more! (see http:&#x2F;&#x2F;archive.ics.uci.edu&#x2F;ml&#x2F;datasets&#x2F;Housing)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这里多一个步骤，查验数据是否正规化，一般都是没有的</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">print np.max(boston.target)</span><br><span class="line">print np.min(boston.target)</span><br><span class="line">print np.mean(boston.target)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">50.0</span><br><span class="line">5.0</span><br><span class="line">22.5328063241</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line"># 依然如故，我们对数据进行分割</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(boston.data, boston.target, test_size &#x3D; 0.25, random_state&#x3D;33)</span><br><span class="line"></span><br><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line"></span><br><span class="line"># 正规化的目的在于避免原始特征值差异过大，导致训练得到的参数权重不一</span><br><span class="line">scalerX &#x3D; StandardScaler().fit(X_train)</span><br><span class="line">X_train &#x3D; scalerX.transform(X_train)</span><br><span class="line">X_test &#x3D; scalerX.transform(X_test)</span><br><span class="line"></span><br><span class="line">scalery &#x3D; StandardScaler().fit(y_train)</span><br><span class="line">y_train &#x3D; scalery.transform(y_train)</span><br><span class="line">y_test &#x3D; scalery.transform(y_test)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [5]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 先把评价模块写好，依然是默认5折交叉验证，只是这里的评价指标不再是精度，而是另一个函数R2，大体上，这个得分多少代表有多大百分比的回归结果可以被训练器覆盖和解释</span><br><span class="line">from sklearn.cross_validation import *</span><br><span class="line"></span><br><span class="line">def train_and_evaluate(clf, X_train, y_train):</span><br><span class="line">    cv &#x3D; KFold(X_train.shape[0], 5, shuffle&#x3D;True, random_state&#x3D;33)</span><br><span class="line">    scores &#x3D; cross_val_score(clf, X_train, y_train, cv&#x3D;cv)</span><br><span class="line">    print &#39;Average coefficient of determination using 5-fold cross validation:&#39;, np.mean(scores)</span><br><span class="line">    </span><br><span class="line">#最后让我们看看有多少种回归模型可以被使用（其实有更多）。</span><br><span class="line"># 比较有代表性的有3种</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [7]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 先用线性模型尝试， SGD_Regressor</span><br><span class="line">from sklearn import linear_model</span><br><span class="line"># 这里有一个正则化的选项penalty，目前14维特征也许不会有太大影响</span><br><span class="line">clf_sgd &#x3D; linear_model.SGDRegressor(loss&#x3D;&#39;squared_loss&#39;, penalty&#x3D;None, random_state&#x3D;42)</span><br><span class="line">train_and_evaluate(clf_sgd, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.710809853468</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [8]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 再换一个SGD_Regressor的penalty参数为l2,结果貌似影响不大，因为特征太少，正则化意义不大</span><br><span class="line">clf_sgd_l2 &#x3D; linear_model.SGDRegressor(loss&#x3D;&#39;squared_loss&#39;, penalty&#x3D;&#39;l2&#39;, random_state&#x3D;42)</span><br><span class="line">train_and_evaluate(clf_sgd_l2, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.71081206667</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [9]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 再看看SVM的regressor怎么样（都是默认参数）, </span><br><span class="line">from sklearn.svm import SVR</span><br><span class="line"># 使用线性核没有啥子提升，但是因为特征少，所以可以考虑升高维度</span><br><span class="line">clf_svr &#x3D; SVR(kernel&#x3D;&#39;linear&#39;)</span><br><span class="line">train_and_evaluate(clf_svr, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.707838419194</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [11]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">clf_svr_poly &#x3D; SVR(kernel&#x3D;&#39;poly&#39;)</span><br><span class="line"># 升高维度，效果明显，但是此招慎用@@，特征高的话, CPU还是受不了，内存倒是小事。其实到了现在，连我们自己都没办法直接解释这些特征的具体含义了。</span><br><span class="line">train_and_evaluate(clf_svr_poly, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.779288545488</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [12]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">clf_svr_rbf &#x3D; SVR(kernel&#x3D;&#39;rbf&#39;)</span><br><span class="line"># RBF (径向基核更是牛逼！)</span><br><span class="line">train_and_evaluate(clf_svr_rbf, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.833662221567</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [14]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 再来个更猛的! 极限回归森林，放大招了！！！</span><br><span class="line">from sklearn import ensemble</span><br><span class="line">clf_et &#x3D; ensemble.ExtraTreesRegressor()</span><br><span class="line">train_and_evaluate(clf_et, X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Average coefficient of determination using 5-fold cross validation: 0.853006383633</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [15]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 最后看看在测试集上的表现</span><br><span class="line">clf_et.fit(X_train, y_train)</span><br><span class="line">clf_et.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[15]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.83781467779895469</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>总结来看，我们可以通过这个例子得到机器学习不断进取的快感！一点点提高模型性能，并且，也能感觉到超参数的作用有时比更换模型的提升效果更好。而且这里也为后续的“特征选择”，“模型选择”等实用话题埋下了伏笔。</strong></p>
+<p><strong>2. 无监督学习</strong></p>
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong><del>~</del></strong></p>
+<p><strong>无监督学习(Unsupervised Learning)事实上比起监督学习，区别在于：没有预测/学习目标（Target）。</strong></p>
+<p><strong>这类学习问题往往数据资源更加丰富，因为很大程度上，监督学习(Supervised Learning)经常需要人类来承担标注工作，从而“教会”计算机做预测工作；而且这个工作有时候还需要专业人士参与，比如Iris那种数据库，不是专家（这时候专家还是有用的），一般人是分辨不了的。</strong></p>
+<p><strong>如果说，监督学习有两大基本类型：分类和回归（事实上还有序列化标注等更加复杂的问题）；那么无监督学习有：聚类、降维等问题。</strong></p>
+<p><strong>监督学习问题，我们需要通过标注的“反馈”来“训练”模型参数；无监督学习问题则更加倾向于寻找数据特征本身之间的“共性”或者叫“模式”。比如：聚类问题，通过寻找数据之间“相似”的特征表达，来发现数据的“群落”。降维/压缩问题则是选取数据具有代表性的特征，在保持数据多样性(variance)的基础上，规避掉大量的特征冗余和噪声，不过这个过程也很有可能会损失一些有用的模式信息。</strong></p>
+<p>*<em>2.1 主成分分析 (PCA降维)<br>*</em></p>
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong>首先我们思考一个小例子，这个完全是我的个人理解，也是经常用来向周围朋友解释降低维度，信息冗余和PCA功能的。比如，我们有一组2 * 2的数据[(1, 2), (2, 4)}]，假设这两个数据都反映到一个类别（分类）或者一个类簇（聚类）。但是如果我们的学习模型是线性模型，那么这两个数据其实只能帮助权重参数更新一次，因为他们线性相关，所有的特征数值都只是扩张了相同的倍数。如果使用PCA分析的话，这个矩阵的“秩”是1，也就是说，在多样性程度上，这个矩阵只有一个自由度。</strong></p>
+<p><strong>其实，我们也可以把PCA当做特征选择，只是和普通理解的不同，这种特征选择是首先把原来的特征空间做了映射，使得新的映射后特征空间数据彼此正交。</strong></p>
+<p><strong>下面就让我们进入正题，看看PCA在哪些具体应用上可以使用。第一个例子便是手写数字识别（最终还是应用在监督学习上，不过中间的特征采样过程用到PCA）。</strong></p>
+<p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"># 先热个身，牛刀小试</span><br><span class="line">M &#x3D; np.array([[1, 2], [2, 4]])</span><br><span class="line">M</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array([[1, 2],</span><br><span class="line">       [2, 4]])</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.linalg.matrix_rank(M, tol&#x3D;None)</span><br><span class="line"># 获取M矩阵的秩&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 载入手写数字的图像像素数据。对于图像处理，除了后续的各种启发式提取有效特征以外，</span><br><span class="line"># 最直接常用的就是像素数据，每个像素都是一个数值，反映颜色。</span><br><span class="line">from sklearn.datasets import load_digits</span><br><span class="line">digits &#x3D; load_digits()</span><br><span class="line"># 这些经典数据的存储格式非常统一。这是好习惯，统一了接口，也便于快速使用。</span><br><span class="line">digits</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#39;DESCR&#39;: &quot; Optical Recognition of Handwritten Digits Data Set\n\nNotes\n-----\nData Set Characteristics:\n    :Number of Instances: 5620\n    :Number of Attributes: 64\n    :Attribute Information: 8x8 image of integer pixels in the range 0..16.\n    :Missing Attribute Values: None\n    :Creator: E. Alpaydin (alpaydin &#39;@&#39; boun.edu.tr)\n    :Date: July; 1998\n\nThis is a copy of the test set of the UCI ML hand-written digits datasets\nhttp:&#x2F;&#x2F;archive.ics.uci.edu&#x2F;ml&#x2F;datasets&#x2F;Optical+Recognition+of+Handwritten+Digits\n\nThe data set contains images of hand-written digits: 10 classes where\neach class refers to a digit.\n\nPreprocessing programs made available by NIST were used to extract\nnormalized bitmaps of handwritten digits from a preprinted form. From a\ntotal of 43 people, 30 contributed to the training set and different 13\nto the test set. 32x32 bitmaps are divided into nonoverlapping blocks of\n4x4 and the number of on pixels are counted in each block. This generates\nan input matrix of 8x8 where each element is an integer in the range\n0..16. This reduces dimensionality and gives invariance to small\ndistortions.\n\nFor info on NIST preprocessing routines, see M. D. Garris, J. L. Blue, G.\nT. Candela, D. L. Dimmick, J. Geist, P. J. Grother, S. A. Janet, and C.\nL. Wilson, NIST Form-Based Handprint Recognition System, NISTIR 5469,\n1994.\n\nReferences\n----------\n  - C. Kaynak (1995) Methods of Combining Multiple Classifiers and Their\n    Applications to Handwritten Digit Recognition, MSc Thesis, Institute of\n    Graduate Studies in Science and Engineering, Bogazici University.\n  - E. Alpaydin, C. Kaynak (1998) Cascading Classifiers, Kybernetika.\n  - Ken Tang and Ponnuthurai N. Suganthan and Xi Yao and A. Kai Qin.\n    Linear dimensionalityreduction using relevance weighted LDA. School of\n    Electrical and Electronic Engineering Nanyang Technological University.\n    2005.\n  - Claudio Gentile. A New Approximate Maximal Margin Classification\n    Algorithm. NIPS. 2000.\n&quot;,</span><br><span class="line"> &#39;data&#39;: array([[  0.,   0.,   5., ...,   0.,   0.,   0.],</span><br><span class="line">        [  0.,   0.,   0., ...,  10.,   0.,   0.],</span><br><span class="line">        [  0.,   0.,   0., ...,  16.,   9.,   0.],</span><br><span class="line">        ..., </span><br><span class="line">        [  0.,   0.,   1., ...,   6.,   0.,   0.],</span><br><span class="line">        [  0.,   0.,   2., ...,  12.,   0.,   0.],</span><br><span class="line">        [  0.,   0.,  10., ...,  12.,   1.,   0.]]),</span><br><span class="line"> &#39;images&#39;: array([[[  0.,   0.,   5., ...,   1.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,  13., ...,  15.,   5.,   0.],</span><br><span class="line">         [  0.,   3.,  15., ...,  11.,   8.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   4.,  11., ...,  12.,   7.,   0.],</span><br><span class="line">         [  0.,   2.,  14., ...,  12.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   6., ...,   0.,   0.,   0.]],</span><br><span class="line"> </span><br><span class="line">        [[  0.,   0.,   0., ...,   5.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   0., ...,   9.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   3., ...,   6.,   0.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   0.,   1., ...,   6.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   1., ...,   6.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   0., ...,  10.,   0.,   0.]],</span><br><span class="line"> </span><br><span class="line">        [[  0.,   0.,   0., ...,  12.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   3., ...,  14.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   8., ...,  16.,   0.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   9.,  16., ...,   0.,   0.,   0.],</span><br><span class="line">         [  0.,   3.,  13., ...,  11.,   5.,   0.],</span><br><span class="line">         [  0.,   0.,   0., ...,  16.,   9.,   0.]],</span><br><span class="line"> </span><br><span class="line">        ..., </span><br><span class="line">        [[  0.,   0.,   1., ...,   1.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,  13., ...,   2.,   1.,   0.],</span><br><span class="line">         [  0.,   0.,  16., ...,  16.,   5.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   0.,  16., ...,  15.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,  15., ...,  16.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,   2., ...,   6.,   0.,   0.]],</span><br><span class="line"> </span><br><span class="line">        [[  0.,   0.,   2., ...,   0.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,  14., ...,  15.,   1.,   0.],</span><br><span class="line">         [  0.,   4.,  16., ...,  16.,   7.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   0.,   0., ...,  16.,   2.,   0.],</span><br><span class="line">         [  0.,   0.,   4., ...,  16.,   2.,   0.],</span><br><span class="line">         [  0.,   0.,   5., ...,  12.,   0.,   0.]],</span><br><span class="line"> </span><br><span class="line">        [[  0.,   0.,  10., ...,   1.,   0.,   0.],</span><br><span class="line">         [  0.,   2.,  16., ...,   1.,   0.,   0.],</span><br><span class="line">         [  0.,   0.,  15., ...,  15.,   0.,   0.],</span><br><span class="line">         ..., </span><br><span class="line">         [  0.,   4.,  16., ...,  16.,   6.,   0.],</span><br><span class="line">         [  0.,   8.,  16., ...,  16.,   8.,   0.],</span><br><span class="line">         [  0.,   1.,   8., ...,  12.,   1.,   0.]]]),</span><br><span class="line"> &#39;target&#39;: array([0, 1, 2, ..., 8, 9, 8]),</span><br><span class="line"> &#39;target_names&#39;: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 老套路</span><br><span class="line">X_digits, y_digits &#x3D; digits.data, digits.target</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [11]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.decomposition import PCA</span><br><span class="line">from matplotlib import pyplot as plt</span><br><span class="line"># 最关键的参数就是n_components &#x3D; 2个主成分</span><br><span class="line"></span><br><span class="line">estimator &#x3D; PCA(n_components&#x3D;2)</span><br><span class="line"></span><br><span class="line">X_pca &#x3D; estimator.fit_transform(X_digits)</span><br><span class="line"># scikit-learn的接口设计的很统一。</span><br><span class="line"></span><br><span class="line"># 聚类问题经常需要直观的展现数据，降维度的一个直接目的也为此；因此我们这里多展现几个图片直观一些。</span><br><span class="line"></span><br><span class="line">def plot_pca_scatter():</span><br><span class="line">    colors &#x3D; [&#39;black&#39;, &#39;blue&#39;, &#39;purple&#39;, &#39;yellow&#39;, &#39;white&#39;, &#39;red&#39;, &#39;lime&#39;, &#39;cyan&#39;, &#39;orange&#39;, &#39;gray&#39;]</span><br><span class="line">    for i in xrange(len(colors)):</span><br><span class="line">        px &#x3D; X_pca[:, 0][y_digits &#x3D;&#x3D; i]</span><br><span class="line">        py &#x3D; X_pca[:, 1][y_digits &#x3D;&#x3D; i]</span><br><span class="line">        plt.scatter(px, py, c&#x3D;colors[i])</span><br><span class="line">    plt.legend(digits.target_names)</span><br><span class="line">    plt.xlabel(&#39;First Principal Component&#39;)</span><br><span class="line">    plt.ylabel(&#39;Second Principal Component&#39;)</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line">plot_pca_scatter()</span><br></pre></td></tr></table></figure>
+
+<p>*<em><img src="https://www.evernote.com/shard/s622/res/9c54e86f-4aaa-4ff9-8d49-c341e34f40ee/figure_1.png" alt="img"><br>*</em></p>
+<p><strong>2.2 聚类算法 (K-means等)</strong></p>
+<p><strong><em>\</em><del>~</del>**</strong></p>
+<p><strong><em>\</em>聚类就是找“相似”，只是要定义这个相似需要两个要素：特征表示，距离计算；这两个要素都会影响相似度的结论。**</strong></p>
+<p><strong>2.3 RBM</strong></p>
+<p><strong><em>\</em><del>~</del>**</strong></p>
+<p><strong><em>\</em>因为深度学习太火，Scikit-learn也加入了何其相关的一个RBM模型，听说后续版本还有深度监督学习模型，DBN之类的，很期待。**</strong></p>
+<p><strong>3. 特征、模型的选择（高级话题）</strong></p>
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong><del>~</del></strong></p>
+<p><strong>3.1 特征选择 (feature_selection)</strong></p>
+<p><strong>这里我们继续沿用Titanic数据集，这次侧重于对模型的区分能力贡献最大的几个特征选取的问题。</strong></p>
+<p><strong>不良的特征会对模型的精度“拖后腿”；冗余的特征虽然不会影响模型的精度，不过CPU计算做了无用功。</strong></p>
+<p><strong>我个人理解，这种特征选择与PCA这类特征压缩选择主成分的略有区别：PCA重建之后的特征我们已经无法解释其意义了。</strong></p>
+<p><strong><a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/Feature_selection.ipynb" target="_blank" rel="noopener">【Source Code】</a></strong></p>
+<p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 这部分代码和原著的第四章节有相同的效果，但是充分利用pandas会表达的更加简洁，因此我重新编写了更加清晰简洁的代码。</span><br><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">titanic &#x3D; pd.read_csv(&#39;http:&#x2F;&#x2F;biostat.mc.vanderbilt.edu&#x2F;wiki&#x2F;pub&#x2F;Main&#x2F;DataSets&#x2F;titanic.txt&#39;)</span><br><span class="line"></span><br><span class="line">print titanic.info()</span><br><span class="line"># 还是这组数据</span><br><span class="line">titanic.head()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;</span><br><span class="line">Int64Index: 1313 entries, 0 to 1312</span><br><span class="line">Data columns (total 11 columns):</span><br><span class="line">row.names    1313 non-null int64</span><br><span class="line">pclass       1313 non-null object</span><br><span class="line">survived     1313 non-null int64</span><br><span class="line">name         1313 non-null object</span><br><span class="line">age          633 non-null float64</span><br><span class="line">embarked     821 non-null object</span><br><span class="line">home.dest    754 non-null object</span><br><span class="line">room         77 non-null object</span><br><span class="line">ticket       69 non-null object</span><br><span class="line">boat         347 non-null object</span><br><span class="line">sex          1313 non-null object</span><br><span class="line">dtypes: float64(1), int64(2), object(8)</span><br><span class="line">memory usage: 123.1+ KB</span><br><span class="line">None</span><br></pre></td></tr></table></figure>
+
+<p><strong><img src="https://mlnote.files.wordpress.com/2015/12/unnamed-qq-screenshot20151216172815.png?w=702" alt="Unnamed QQ Screenshot20151216172815"></strong></p>
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 我们丢掉一些过于特异的，不利于找到共同点的数据列， row.names, name, 同时分离出预测列。</span><br><span class="line"></span><br><span class="line">y &#x3D; titanic[&#39;survived&#39;]</span><br><span class="line">X &#x3D; titanic.drop([&#39;row.names&#39;, &#39;name&#39;, &#39;survived&#39;], axis &#x3D; 1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 对于连续的数值特征，我们采用补完的方式</span><br><span class="line">X[&#39;age&#39;].fillna(X[&#39;age&#39;].mean(), inplace&#x3D;True)</span><br><span class="line"></span><br><span class="line">X.fillna(&#39;UNKNOWN&#39;, inplace&#x3D;True)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [4]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 剩下的类别类型数据，我们直接向量化，这样的话，对于有空白特征的列，我们也单独视作一个特征</span><br><span class="line"></span><br><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(X, y, test_size&#x3D;0.25, random_state&#x3D;33)</span><br><span class="line"></span><br><span class="line">from sklearn.feature_extraction import DictVectorizer</span><br><span class="line">vec &#x3D; DictVectorizer()</span><br><span class="line">X_train &#x3D; vec.fit_transform(X_train.to_dict(orient&#x3D;&#39;record&#39;))</span><br><span class="line">X_test &#x3D; vec.transform(X_test.to_dict(orient&#x3D;&#39;record&#39;))</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [5]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print len(vec.feature_names_)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">474</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [6]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train.toarray()</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[6]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">array([[ 31.19418104,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   1.        ],</span><br><span class="line">       [ 31.19418104,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   0.        ],</span><br><span class="line">       [ 31.19418104,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   1.        ],</span><br><span class="line">       ..., </span><br><span class="line">       [ 12.        ,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   1.        ],</span><br><span class="line">       [ 18.        ,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   1.        ],</span><br><span class="line">       [ 31.19418104,   0.        ,   0.        , ...,   0.        ,</span><br><span class="line">          0.        ,   1.        ]])</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [7]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.tree import DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line">dt &#x3D; DecisionTreeClassifier(criterion&#x3D;&#39;entropy&#39;)</span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line">dt.score(X_test, y_test)</span><br><span class="line"># 采用所有特征的测试精度</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[7]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.81762917933130697</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [8]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import feature_selection</span><br><span class="line">fs &#x3D; feature_selection.SelectPercentile(feature_selection.chi2, percentile&#x3D;20)</span><br><span class="line"></span><br><span class="line">X_train_fs &#x3D; fs.fit_transform(X_train, y_train)</span><br><span class="line">dt.fit(X_train_fs, y_train)</span><br><span class="line">X_test_fs &#x3D; fs.transform(X_test)</span><br><span class="line">dt.score(X_test_fs, y_test)</span><br><span class="line"># 采用20%高预测性特征的测试精度</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[8]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.82370820668693012</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [9]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cross_validation import cross_val_score</span><br><span class="line">percentiles &#x3D; range(1, 100, 2)</span><br><span class="line"></span><br><span class="line">results &#x3D; []</span><br><span class="line"></span><br><span class="line">for i in percentiles:</span><br><span class="line">    fs &#x3D; feature_selection.SelectPercentile(feature_selection.chi2, percentile &#x3D; i)</span><br><span class="line">    X_train_fs &#x3D; fs.fit_transform(X_train, y_train)</span><br><span class="line">    scores &#x3D; cross_val_score(dt, X_train_fs, y_train, cv&#x3D;5)</span><br><span class="line">    results &#x3D; np.append(results, scores.mean())</span><br><span class="line">print results</span><br><span class="line"></span><br><span class="line">opt &#x3D; np.where(results &#x3D;&#x3D; results.max())[0]</span><br><span class="line">print &#39;Optimal number of features %d&#39; %percentiles[opt]</span><br><span class="line">import pylab as pl</span><br><span class="line"></span><br><span class="line">pl.plot(percentiles, results)</span><br><span class="line">pl.show()</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ 0.85063904  0.85673057  0.87501546  0.88622964  0.86590394  0.87097506</span><br><span class="line">  0.87303649  0.86997526  0.87097506  0.87300557  0.86997526  0.86893424</span><br><span class="line">  0.87098536  0.86490414  0.86385281  0.86791383  0.86488353  0.86892393</span><br><span class="line">  0.86791383  0.86284271  0.86487322  0.86792414  0.86894455  0.87303649</span><br><span class="line">  0.86892393  0.86998557  0.86689342  0.86488353  0.86895485  0.86689342</span><br><span class="line">  0.87198516  0.8638322   0.86488353  0.87402597  0.87299526  0.87098536</span><br><span class="line">  0.86997526  0.86892393  0.86794475  0.86486291  0.87096475  0.86587302</span><br><span class="line">  0.86387343  0.86083282  0.86589363  0.8608019   0.86492476  0.85774067</span><br><span class="line">  0.8608122   0.85779221]</span><br><span class="line">Optimal number of features 7</span><br></pre></td></tr></table></figure>
+
+<p><strong><img src="https://www.evernote.com/shard/s622/res/4d27dbd5-f721-4323-8f9a-c5a7b183aee2/figure_1.png" alt="img"></strong></p>
+<p><strong>In [10]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">from sklearn import feature_selection</span><br><span class="line">fs &#x3D; feature_selection.SelectPercentile(feature_selection.chi2, percentile&#x3D;7)</span><br><span class="line"></span><br><span class="line">X_train_fs &#x3D; fs.fit_transform(X_train, y_train)</span><br><span class="line">dt.fit(X_train_fs, y_train)</span><br><span class="line">X_test_fs &#x3D; fs.transform(X_test)</span><br><span class="line">dt.score(X_test_fs, y_test)</span><br><span class="line"># 选取搜索到的最好特征比例的测试精度</span><br></pre></td></tr></table></figure>
+
+<p><strong>Out[10]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0.8571428571428571</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [ ]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># 由此可见，这个技术对于工程上提升精度还是非常有帮助的。</span><br></pre></td></tr></table></figure>
+
+
+
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong>3.2 模型（超参数）选择</strong></p>
+<p><strong>由于超参数的空间是无尽的，因此超参数的组合配置只能是“更优”解，没有最优解。通常情况下，我们依靠“网格搜索”(GridSearch)对固定步长的超参数空间进行暴力搜索，对于每组超参数组合代入到学习函数中，视为新模型。为了比较新模型之间的性能，每个模型都会在相同的训练、开发数据集下进行评估，通常我们采用交叉验证。因此，这个过程非常耗时，但是一旦获取比较好的参数，则可以保持一段时间使用，也相对一劳永逸。好在，由于各个新模型的交叉验证之间是互相独立的，因此，可以充分利用多核甚至是分布式的计算资源来并行搜索（Parallel Grid Search）。<a href="http://localhost:8888/notebooks/PythonNotebook/Scikit-learn/Model_selection.ipynb" target="_blank" rel="noopener">【Source Code】</a></strong></p>
+<h5 id="-3"><a href="#-3" class="headerlink" title=""></a></h5><p><strong>In [1]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.datasets import fetch_20newsgroups</span><br><span class="line">import numpy as np</span><br><span class="line">news &#x3D; fetch_20newsgroups(subset&#x3D;&#39;all&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [2]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># 我们首先使用grid_search的单核版本</span><br><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line">from sklearn.grid_search import GridSearchCV</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(news.data[:3000], news.target[:3000], test_size&#x3D;0.25, random_state&#x3D;33)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from sklearn.svm import SVC</span><br><span class="line">from sklearn.feature_extraction.text import TfidfVectorizer</span><br><span class="line">from sklearn.pipeline import Pipeline</span><br><span class="line"></span><br><span class="line">clf &#x3D; Pipeline([(&#39;vect&#39;, TfidfVectorizer(stop_words&#x3D;&#39;english&#39;, analyzer&#x3D;&#39;word&#39;)), (&#39;svc&#39;, SVC())])</span><br><span class="line"></span><br><span class="line"># 这里需要试验的2个超参数的的个数分别是4、3， svc__gamma的参数共有10^-2, 10^-1... </span><br><span class="line"># 这样我们一共有12种的超参数组合，12个不同参数下的模型</span><br><span class="line">parameters &#x3D; &#123;&#39;svc__gamma&#39;: np.logspace(-2, 1, 4), &#39;svc__C&#39;: np.logspace(-1, 1, 3)&#125;</span><br><span class="line"></span><br><span class="line"># 再考虑每个模型需要交叉验证3次，因此一共需要训练36次模型，根据下面的结果，单线程下，每个模型的训练任务耗时5秒左右。</span><br><span class="line">gs &#x3D; GridSearchCV(clf, parameters, verbose&#x3D;2, refit&#x3D;True, cv&#x3D;3)</span><br><span class="line"></span><br><span class="line">%time _&#x3D;gs.fit(X_train, y_train)</span><br><span class="line">gs.best_params_, gs.best_score_</span><br><span class="line"></span><br><span class="line">print gs.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">Fitting 3 folds for each of 12 candidates, totalling 36 fits</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 -   5.1s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;0.1 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 -   5.1s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;0.1 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 -   5.7s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 -   5.8s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;0.1 -   5.9s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 -   5.5s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;0.1 -   5.5s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.01, svc__C&#x3D;1.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;0.1, svc__C&#x3D;1.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 ......................................</span><br><span class="line">[CV] ............................. svc__gamma&#x3D;1.0, svc__C&#x3D;1.0 -   5.5s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;10.0, svc__C&#x3D;1.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 -   5.2s</span><br><span class="line">[CV] svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;0.01, svc__C&#x3D;10.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;0.1, svc__C&#x3D;10.0 -   5.4s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 -   5.3s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 -   5.5s</span><br><span class="line">[CV] svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 .....................................</span><br><span class="line">[CV] ............................ svc__gamma&#x3D;1.0, svc__C&#x3D;10.0 -   5.7s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 -   5.6s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 -   5.6s</span><br><span class="line">[CV] svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 ....................................</span><br><span class="line">[CV] ........................... svc__gamma&#x3D;10.0, svc__C&#x3D;10.0 -   5.9s</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Parallel(n_jobs&#x3D;1)]: Done   1 jobs       | elapsed:    5.1s</span><br><span class="line">[Parallel(n_jobs&#x3D;1)]: Done  36 out of  36 | elapsed:  3.3min finished</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Wall time: 3min 27s</span><br><span class="line">0.822666666667</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [3]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 然后我们采用多线程并行搜索，观察时间性能的提高情况</span><br><span class="line"></span><br><span class="line">from sklearn.cross_validation import train_test_split</span><br><span class="line">from sklearn.grid_search import GridSearchCV</span><br><span class="line">X_train, X_test, y_train, y_test &#x3D; train_test_split(news.data[:3000], news.target[:3000], test_size&#x3D;0.25, random_state&#x3D;33)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from sklearn.svm import SVC</span><br><span class="line">from sklearn.feature_extraction.text import TfidfVectorizer</span><br><span class="line">from sklearn.pipeline import Pipeline</span><br><span class="line"></span><br><span class="line">clf &#x3D; Pipeline([(&#39;vect&#39;, TfidfVectorizer(stop_words&#x3D;&#39;english&#39;, analyzer&#x3D;&#39;word&#39;)), (&#39;svc&#39;, SVC())])</span><br><span class="line"></span><br><span class="line">parameters &#x3D; &#123;&#39;svc__gamma&#39;: np.logspace(-2, 1, 4), &#39;svc__C&#39;: np.logspace(-1, 1, 3)&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gs &#x3D; GridSearchCV(clf, parameters, verbose&#x3D;2, refit&#x3D;True, cv&#x3D;3, n_jobs&#x3D;-1)</span><br><span class="line"></span><br><span class="line">%time _&#x3D;gs.fit(X_train, y_train)</span><br><span class="line">gs.best_params_, gs.best_score_</span><br><span class="line">print gs.score(X_test, y_test)</span><br><span class="line"># 并行化寻找最优的超参数配置，同样获得相同的最优解，但是训练耗时基本上随着CPU核的数量成倍减少。</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Parallel(n_jobs&#x3D;-1)]: Done   1 jobs       | elapsed:    8.4s</span><br><span class="line">[Parallel(n_jobs&#x3D;-1)]: Done  22 out of  36 | elapsed:   30.3s remaining:   19.2s</span><br><span class="line">[Parallel(n_jobs&#x3D;-1)]: Done  36 out of  36 | elapsed:   46.8s finished</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fitting 3 folds for each of 12 candidates, totalling 36 fits</span><br><span class="line">Wall time: 56.5 s</span><br><span class="line">0.822666666667</span><br></pre></td></tr></table></figure>
+
+<p><strong>In [ ]:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 这里需要补充的是得到这个结果的机器的配置，好让读者有一个对并行计算更好的了解。</span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line">CPU: i7 四核 2.4Ghz</span><br><span class="line">Memory: DDR3 1600 32GB</span><br><span class="line"></span><br><span class="line">&#39;&#39;&#39;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>4. 强力（流行）模型包的尝试（高级话题）</strong></p>
+<p>*<em><del>~</del><br>*</em></p>
+<p><strong><del>~</del></strong></p>
+<p><strong>这个话题有几个独立的部分，对于Xgboost和Tensorflow的试验，需要Linux环境。待回国后用IMAC试试:)。</strong></p>
+<p><strong>不过仍然有一份高级一点的NLP相关的内容可以探讨，其中就有Kaggle上面利用Word2Vec对情感分析任务助益的项目。我们这里先来分析一下。</strong></p>
+<p>*<em><a href="https://www.kaggle.com/c/word2vec-nlp-tutorial" target="_blank" rel="noopener">https://www.kaggle.com/c/word2vec-nlp-tutorial</a><br>*</em></p>
+<p><strong>4.1. 词向量对NLP相关任务的助益</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/13/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0%E7%8E%87%E7%AE%97%E6%B3%95-Adam%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" rel="next" title="深度学习学习率算法:Adam优化算法">
+                <i class="fa fa-chevron-left"></i> 深度学习学习率算法:Adam优化算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/23/NLP%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0-Glove%E8%AF%8D%E5%90%91%E9%87%8F%E7%90%86%E8%A7%A3/" rel="prev" title="NLP论文笔记:Glove词向量理解">
+                NLP论文笔记:Glove词向量理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/11/15/「转」kaggle打榜经验/"
+           data-title="「转」kaggle打榜经验" data-url="http://yoursite.com/2019/11/15/%E3%80%8C%E8%BD%AC%E3%80%8Dkaggle%E6%89%93%E6%A6%9C%E7%BB%8F%E9%AA%8C/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Adler</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-1"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-2"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-3"><span class="nav-number">4.</span> <span class="nav-text"></span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Adler</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"your-duoshuo-shortname"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
